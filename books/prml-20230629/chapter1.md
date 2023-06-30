@@ -289,7 +289,7 @@ $$
 2. ベイズ的なアプローチのために、多項式の係数$\bm{w}$に関する事前分布を導入する
 
     $$
-    p(\bm{w}~|~\alpha) = \mathcal{N}(\bm{w}~|~\mathbf{0}, \alpha^{-1}\mathbf{I}) = \Bigl(\frac{\alpha}{2\pi}\Bigr)^{(M+1)/2}\exp\Bigl\{-\frac{\alpha}{2}\bm{w}^\top\bm{w}\Bigr\}
+    p(\bm{w}~|~\alpha) = \mathcal{N}(\bm{w}~|~\mathbf{0}, \alpha^{-1}\text{I}) = \Bigl(\frac{\alpha}{2\pi}\Bigr)^{(M+1)/2}\exp\Bigl\{-\frac{\alpha}{2}\bm{w}^\top\bm{w}\Bigr\}
     $$
 
     - $\alpha:$  分布を制御するパラメータ→**超パラメータ**(hyperparameter)
@@ -347,10 +347,10 @@ $$
     行列 $\mathbf{S}$ は以下の通り
 
     $$
-    \mathbf{S}^{-1} = \alpha \mathbf{I} + \beta\sum_{n=1}^N\phi(x_n)\phi(x_n)^\top
+    \mathbf{S}^{-1} = \alpha \text{I} + \beta\sum_{n=1}^N\phi(x_n)\phi(x_n)^\top
     $$
 
-    - $\mathbf{I}:$  単位行列
+    - $\text{I}:$  単位行列
     - $\phi_i(x):x^i~~(x = 0, ..., M)$
 
 ## 1.3: モデル選択
@@ -495,7 +495,7 @@ $$
 情報理論の分野から、パターン認識や機械学習テクニックの発展にも有用なことがわかっている幾つかの概念を導入する
 
 - **情報量**: $h(x) = -\log_2p(x)$
-- **エントロピー**: $H[x] = -\sum_xp(x)\log_2p(x)$
+- **エントロピー**: $\text{H}[x] = -\sum_xp(x)\log_2p(x)$
 - **ノイズなし符号化定理**(noiseless coding theorem)
     - エントロピーは確率変数の状態を送るために必要なビット数の下界である
 - エントロピーの別の見方をする
@@ -526,7 +526,7 @@ $$
         - ガウス分布の微分エントロピーは計算すると
 
             $$
-            H[x] = \frac{1}{2}\{1+\ln(2\pi\sigma^2)\}
+            \text{H}[x] = \frac{1}{2}\{1+\ln(2\pi\sigma^2)\}
             $$
 
             で与えられることがわかる
@@ -535,13 +535,13 @@ $$
 - **条件付きエントロピー**(conditional entropy)は以下の通り
 
     $$
-    H[\bm{y}~|~\bm{x}] = -\int \int p(\bm{y},\bm{x}) \in p(\bm{y}~|~\bm{x})~d\bm{y} d\bm{x}
+    \text{H}[\bm{y}~|~\bm{x}] = -\int \int p(\bm{y},\bm{x}) \in p(\bm{y}~|~\bm{x})~d\bm{y} d\bm{x}
     $$
 
     - 確率の乗法定理を用いることで
 
         $$
-        H[\bm{x}, \bm{y}] = H[\bm{y}~|~\bm{x}]+H[\bm{x}]
+        \text{H}[\bm{x}, \bm{y}] = \text{H}[\bm{y}~|~\bm{x}]+\text{H}[\bm{x}]
         $$
 
         が満たすことがわかる
@@ -569,7 +569,7 @@ $$
 
     $$
     \begin{align*}
-    \mathbf{I}[\bm{x}, \bm{y}] &\equiv \text{KL}(p(\bm{x}, \bm{y})~||~p(\bm{x})~p(\bm{y}))\\
+    \text{I}[\bm{x}, \bm{y}] &\equiv \text{KL}(p(\bm{x}, \bm{y})~||~p(\bm{x})~p(\bm{y}))\\
     &= -\int p(\bm{x}, \bm{y})~\ln \Bigl(\frac{p(\bm{x})p(\bm{y})}{p(\bm{x}, \bm{y})}\Bigr)d\bm{x}d\bm{y}
     \end{align*}
     $$
@@ -578,7 +578,7 @@ $$
     - 以下のような性質を満たす
 
         $$
-        \mathbf{I}[\bm{x}, \bm{y}] = \mathbf{H}[\bm{x}] - \mathbf{H}[\bm{x}~|~\bm{y}] = \mathbf{H}[\bm{y}] - \mathbf{H}[\bm{y}~|~\bm{x}]
+        \text{I}[\bm{x}, \bm{y}] = \text{H}[\bm{x}] - \text{H}[\bm{x}~|~\bm{y}] = \text{H}[\bm{y}] - \text{H}[\bm{y}~|~\bm{x}]
         $$
 
         - すなわち、$\mathbf{y}$の値を知ることによって$\mathbf{x}$に関する不確実性がどれだけ減少するかを表している
