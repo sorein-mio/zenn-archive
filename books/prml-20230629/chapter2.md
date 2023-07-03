@@ -5,7 +5,7 @@ title: "第２章: 確率分布"
 
 様々な確率分布とそれらの特徴について説明する
 
-- 観測値の有限集合 $\bm{x}_1, ..., \bm{x}_N$ が与えられた時、確率変数$\mathbf{x}$の確率分布$p(\bm{x})$をモデル化する、すなわち**密度推定**(density estimation)をすることに用いられる
+- 観測値の有限集合 $\mathbf{x}_1, ..., \mathbf{x}_N$ が与えられた時、確率変数$\mathbf{x}$の確率分布$p(\mathbf{x})$をモデル化する、すなわち**密度推定**(density estimation)ことに用いられる
 - 事前分布の関数の形が事後分布の形と同じになる事前分布のことを**共役事前分布**(conjugate prior)と呼ぶ
 - ガウス分布のような一部のパラメータによって形状が決定されるような分布のことを**パラメトリック**(parametric)であるという
     - しかし、パラメータによって形状が決まるというのは制限でありデメリットでもある
@@ -475,3 +475,574 @@ $$
         $$
         \lim_{N\rightarrow\infin}\theta^{(N)} = \theta^{*}
         $$
+
+
+### 2.3.6: ガウス分布に対するベイズ推論
+
+パラメータ上の事前分布を導入して、ベイズ主義的な扱い方を導く
+
+1. 分散 $\sigma^2$ は既知として、平均 $\mu$ を推定する
+    - 🧐 平均 $\mu$ に関する事後分布を計算したい、というお気持ち
+
+    $$
+    p(\bm{x} | \mu) = \prod_{n=1}^N~p(x_n|\mu) = \frac{1}{(2\pi\sigma^2)^{N/2}} \exp\Bigl\{ -\frac{1}{2\sigma^2} \sum_{n=1}^N(x_n - \mu)^2\Bigr\}
+    $$
+
+    - 事前分布に**ガウス分布**を選べば、**共役事前分布**(conjugate prior)となる
+
+    $$
+    p(\mu) = \mathcal{N}(\mu|\mu_o, \sigma^2_o)
+    $$
+
+    - 事後分布は以下の関係を満たす
+
+        $$
+        p(\mu|\bm{x}) \propto p(\bm{x}|\mu)~p(\mu)
+        $$
+
+    - 上記の関係を元に、事後分布を事前分布と尤度関数から計算する
+
+        $$
+        p(\mu|\bm{x}) = \mathcal{N}(\mu|\mu_N, \sigma^2_N)
+        $$
+
+    - 平均$\mu_N$と分散$\sigma^2_N$は以下の通り
+
+        $$
+        \begin{align*}
+        \mu_n &= \frac{\sigma^2}{N\sigma^2_o+\sigma^2}\mu_o + \frac{N\sigma_o^2}{N\sigma^2_o+\sigma^2}\mu_{ML} \\
+        \frac{1}{\sigma^2_N} &= \frac{1}{\sigma^2_o} + \frac{N}{\sigma^2}
+        \end{align*}
+        $$
+
+        - $\mu_{ML}:$  最尤推定解(サンプル平均)
+    - 事後分布の平均$\mu_n$
+        - $N=0$ ならば事前分布の平均
+        - $N\rightarrow\infin$ならば最尤推定解
+    - 事後分布の分散$\sigma_n^2$
+        - $N$が大きくなるほど小さくなる
+
+             ☞  分解能が上がる ($N\rightarrow\infin$で無限に尖った密度になる)
+
+- ベイズ推論を逐次推定の視点で捉えることは非常に汎用的
+    - 🧐 (N個のデータ点観測後) = (N-1個のデータ点観測後) * (尤度関数)
+
+        $$
+        p(\mu|\bm{x}) \propto \Bigl[ p(\mu)\prod_{n=1}^{N-1} p(x_n|\mu) \Bigr]~p(x_N|\mu)
+        $$
+
+        - $p(x_N|\mu):$  逐次的な要素
+2. 平均を既知として、分散を推定する
+
+    $$
+    p(\bm{x}|\lambda) = \prod_{n=1}^N\mathcal{N}(x_n|\mu, \lambda^{-1})\propto\lambda^{N/2}~\exp\Bigl\{ -\frac{\lambda}{2}\sum_{n=1}^N(x_n-\mu)^2 \Bigr\}
+    $$
+
+    - 事前分布に**ガンマ分布**を選べば共役事前分布となる
+
+        $$
+        \text{Gam}(\lambda|a, b) = \frac{1}{\Gamma(a)}b^a\lambda^{a-1}\exp(-b\lambda)
+        $$
+
+    - 事後分布は以下の通り
+
+        $$
+        p(\lambda|\bm{x}) = \text{Gam}(\lambda|a_N, b_N)
+        $$
+
+    - 各パラメータは以下の通り
+
+        $$
+        \begin{align*}
+        a_N &= a_o + \frac{N}{2} \\
+        b_N &= b_o + \frac{N}{2}\sigma^2_{ML}
+        \end{align*}
+        $$
+
+        - $\sigma_N^2:$  最尤推定解(サンプル分散)
+    - 上記の事後分布より
+        - 観測データが１増えると$a_N$は $N/2$ 増える
+            - 元々$2a_o$個の有用な観測値が事前に与えられていると解釈できる
+        - 観測データが１増えると$b_N$は $N\sigma_{ML}^2/2$ 増える
+            - 元々$2a_o$個の有用な観測値が事前に与えられていると解釈できる
+                - これは$\sigma_{ML}^2=b_o/a_o$ならば成立する
+                - 🧐 最尤推定解は観測データに依存するので、それに基づいて超パラメータを設定するということ？
+    - 精度パラメータではなく分散そのものについて考える場合は、**逆ガンマ分布**(inverse gamma distribution)を考える必要がある
+        - しかし、精度で考えた方が綺麗に示されるため略
+3. 平均と精度が両方未知の場合
+
+    $$
+    \begin{align*}
+    p(\bm{x}|\mu, \lambda) &= \prod_{n=1}^N{\Bigl(\frac{\lambda}{2\pi}\Bigr)}^{1/2}\exp\Bigl\{ -\frac{\lambda}{2}(x_n - \mu)^2 \Bigr\} \\
+    &\propto \Bigl[ \lambda^{1/2}\exp \Big(-\frac{\lambda\mu^2}{2} \Big)\Bigr]^N\exp\Bigl\{ \lambda\mu\sum_{n=1}^Nx_n  - \sum_{n=1}^N x_n^2 \Bigl\}
+    \end{align*}
+    $$
+
+    - 関数依存性を丁寧に考えると以下のような関係式が得られる
+
+        $$
+        p(\mu, \lambda) = \mathcal{N}(\mu|\mu_o, (\beta\lambda)^{-1})\text{Gam}(\lambda|a, b)
+        $$
+
+        - これは**正規-ガンマ分布**(normal-gamma distribution) or **ガウス-ガンマ分布**(Gaussian-gamma distribution)と呼ばれる
+        - 独立な$\mu$上のガウス事前分布と$\lambda$上のガンマ事前分布の単純な積**ではない**
+            - $\mu$の分布の精度は$\lambda$の線形関数になっているから
+- $D$次元変数の多変量ガウス分布$\mathbf{\mathcal{N}(x|\boldsymbol\mu, \Lambda^{-1})}$の場合を考える
+    - 精度が既知であれば、平均$\boldsymbol\mu$の共役事前分布は同様にガウス分布となる
+    - 平均が既知であれば、精度行列$\mathbf{\Lambda}$の協約事前分布は**ウィシャート分布**(Wishart distribution)になる
+    - どちらも未知であれば、**正規-ウィシャート分布**(normal-Wishart distribution) or **ガウス-ウィシャート分布**(Gaussian-Wishart distribution)になる
+
+### 2.3.7: スチューデントの $\mathbf{t}$ 分布
+
+ガウス分布に関する応用分布をひとつ紹介する
+
+- １変数のガウス分布において以下の処理を施す
+    - ガンマ分布を精度の事前分布とする
+    - 精度を積分消去する
+    - $z = \tau[b+(x-\mu)^2/2]$ の変数置換を用いる
+
+    $$
+    \begin{align*}
+    p(x|\mu, a, b) &= \int_0^\infin\mathcal{N}(x|\mu, \tau^{-1})\text{Gam}(\tau|a, b)d\tau \\
+    &= \frac{b^a}{\Gamma(a)}\Big(\frac{1}{2\pi}\Big)^{1/2}\Big[b+\frac{(x-\mu)^2}{2}\Big]^{-a-1/2}\Gamma(a+1/2)
+    \end{align*}
+    $$
+
+    - $\nu=2a, \lambda=a/b$のパラメータを新たに定義すると以下のようになる
+
+    $$
+    \text{St}(x|\mu, \lambda, \nu) = \frac{\Gamma(\nu/2+1/2)}{\Gamma(\nu/2)}\Big(\frac{\lambda}{\pi\nu}\Big)^{1/2}\Big[1+\frac{\lambda(x-\mu)^2}{\nu}\Big]^{-\nu/2-1/2}
+    $$
+
+    - これは、**スチューデントの $\mathbf{t}$ 分布**(Student’s t-distribution)として知られる
+        - $\lambda:$  **精度**(precision)
+            - 但し、分散の逆数とは”限らない”
+        - $\nu:$  **自由度**(degree of freedom)
+            - $\nu=1:$  **コーシー分布**
+            - $\nu\rightarrow\infin:$  平均$\mu$で精度が$\lambda$のガウス分布
+        - 式から平均は同じ$(=\mu)$だが、精度は異なる(→$\tau$で積分)ようなガウス分布を無限個足し合わせたものとわかる
+            - ガウス分布の無限混合分布
+        - 一般的にガウス分布より”すそ”が長い→**頑健性**(robustness)
+        - $\mathbf{t}$ 分布に対する最尤推定会はEMアルゴリズムによって得られる
+    - パラメータ定義を$\nu=2a, \lambda=a/b, \eta=\tau a/b$と置き換えると以下のようになる
+
+        $$
+        p(x|\mu, \lambda, \nu) = \int_0^\infin\mathcal{N}(x|\mu, (\eta\lambda)^{-1})\text{Gam}(\eta|\nu/2, \nu/2)d\eta
+        $$
+
+        - これは多変量ガウス分布の場合にも一般化でき、多変量スチューデント $\mathbf{t}$ 分布に相当するものを計算できる
+
+### 2.3.8: 周期変数
+
+ガウス分布を周期性に対応させる
+
+- ガウス分布はより複雑な確率モデルを構成する要素としても非常に重要だが、連続変数の密度モデルとして不適切な場合がある
+    - その一つが周期変数
+        - 特定の地理的な位置での風向など
+    - 角座標(極座標)の利用を考える
+- ある方向を原点に選んだ周期変数を使いたいと考える
+    - しかしこれでは、原点の選択に強く依存した結果になる
+        - ex.) $\theta_1=1\degree, \theta_2=359\degree$の場合
+        - 原点が$0\degree$→ サンプル平均: $180\degree$, 標準偏差$179\degree$
+        - 原点が$180\degree$→ サンプル平均: $0\degree$, 標準偏差$1\degree$
+- ここでは周期変数の観測値集合 $\mathcal{D}=\{\theta_1, ..., \theta_N\}$の平均を求める問題を考える
+    - 平均の普遍な尺度を求める為に、観測値は単位上の点と見る
+        - $||x_n|| = 1$を満たす二次元単位ベクトルで観測値を表せる
+    - よって、平均ベクトルは以下の通り
+
+        $$
+        \overline{\mathbf{x}} = \frac{1}{N}
+        \begin{pmatrix}
+        \sum_{n=1}^N\cos\theta_n\\
+        \sum_{n=1}^N\sin\theta_n
+        \end{pmatrix}
+        $$
+
+    - 上記の式を$\overline{\theta}$について解く
+
+        $$
+        \overline{\theta} = \tan^{-1}\Big\{ \frac{\sum_{n}\sin\theta_n}{\sum_{n}\cos\theta_n} \Big\}
+        $$
+
+- ガウス分布の周期変数への一般化を考える
+    - 慣例により、周期$2\pi$の分布$p(\theta)$について考える
+    - ２変数のガウス分布を変数変換させる事で以下のような結果が得られる
+
+    $$
+    p(\theta|\theta_0, m) = \frac{1}{2\pi I_0(m)}\exp\{m\cos(\theta-\theta_0)\}
+    $$
+
+    - これを**フォン・ミーゼス分布**(von Mises distribution)や**循環正規分布**(circular normal distribution)と呼ぶ
+    - $\theta_0:$  分布の平均
+    - $m(=r_0/\sigma^2):$  **集中度パラメータ**(concentration parameter)
+    - $I_0(m):$  (0次の第1種変形)ベッセル関数(zeroth-order Bessel modified function of the first kind)
+    - $\theta_0$の最尤推定量は上記で提示した$\overline{\theta}$と等しくなる
+    - $m$の最尤推定量は以下の通り
+        - $I'_0(m) = I_1(m)$ を利用する
+
+        $$
+        \begin{align*}
+        A(m_{ML}) &= \frac{1}{N}\sum_{n=1}^N\cos(\theta_n-\theta^{ML}_0)\\
+        &= \bigg(\frac{1}{N}\sum_{n=1}^N\cos\theta_n\bigg)\cos\theta^{ML}_0 + \bigg(\frac{1}{N}\sum_{n=1}^N\sin\theta_n\bigg)\sin\theta^{ML}_0
+        \end{align*}
+        $$
+
+    - 右辺は容易に評価できる
+    - 但し、$A(m)$は以下の通り
+        - この関数の逆関数は数値的に求めることが可能
+
+        $$
+        A(m) = \frac{I_1(m)}{I_0(m)}
+        $$
+
+- 周期分布を生成する他の手法
+    - ヒストグラム
+        - 重大な制限あり
+    - 単位円上の条件付けではなく、周辺化するアプローチ
+    - 実数軸上の任意の妥当な分布を$2\pi$の間隔で連続する区間を周期変数$(0, 2\pi)$に写像する
+- フォン・ミーゼス分布の制限の一つは単峰であること
+    - 混合分布を用いれば多峰性を扱えるようになる
+
+### 2.3.9: 混合ガウス分布
+
+単一のガウス分布では捉えられない多峰性のあるデータを捉えたい
+
+- 基本的な分布をいくつか線型結合して定式化された確率モデルのことを**混合分布**(mixture distribution)という
+    - そのうちの例である**混合ガウス分布**(mixture of Gaussians)は以下の通り
+
+    $$
+    p(\mathbf{x}) = \sum_{k=1}^K\pi_k\mathcal{N}(\mathbf{x}|\boldsymbol\mu_k, \mathbf{\Sigma}_k)
+    $$
+
+    - $\pi_k:$  **混合係数**(mixing coefficient)
+        - これは確率の条件を満たしている
+    - 各ガウス分布は**混合要素**(mixture component)と呼ばれる
+- 以下のように上式を捉えてみる
+    - $\pi_k=p(k):$  $k$番目の混合分布を選択する事前分布
+    - $\mathcal{N}(\mathbf{x}|\boldsymbol\mu_k, \mathbf{\Sigma}_k)=p(\mathbf{x}|k):$  $k$が与えられた時の$\bm{x}$の条件付き密度
+    - この時の$\bm{x}$の周辺密度は
+
+        $$
+        p(\mathbf{x}) = \sum_{k=1}^Kp(k)p(\mathbf{x}|k)
+        $$
+
+        で与えられる
+
+    - 事後確率 $p(k|\bm{x})$ は**負担率**(responsibility)と呼ばれる
+- 混合分布のパラメータをも求める方法
+    - 最尤推定法
+        - 解析解を得ることは不可能なので数値最適化手法やEMアルゴリズムを活用する
+
+## 2.4: 指数型分布族
+
+今まで紹介してきた確率分布の共通点を述べる
+
+- 今まで紹介したものたちは(混合ガウス分布を除いて)**指数型分布族**と呼ばれる大きな族の例となっている
+
+    $$
+    p(\mathbf{x}|\bm{\eta}) = h(\mathbf{x})g(\bm{\eta})\exp(\boldsymbol{\eta}^\top\mathbf{u}(\mathbf{x}))
+    $$
+
+    - $\bm{\eta}:$  **自然のパラメータ**(natural parameter)
+    - $\mathbf{u}(\mathbf{x}):$  任意の関数
+    - $g(\bm{x}):$  分布を正規化するための係数
+    - 🧐 イメージは → $(密度関数) = (正則化)*(xの関数)*\exp(xの関数)$
+- 初めに、**ベルヌーイ分布**(Bernoulli distribution)について考える
+
+    $$
+    \text{Bern}(x|\mu) = \mu^x(1-\mu)^{1-x}
+    $$
+
+    - これを上記の式の形になるように変形する
+
+        $$
+        p(x|\eta) = \sigma(-\eta)\exp(\eta x)
+        $$
+
+    - 但し、$\sigma(\eta)$は以下の通り
+
+        $$
+        \sigma(\eta) = \frac{1}{1+\exp(-\eta)}
+        $$
+
+        - これは、**ロジスティックシグモイド関数**(logistic sigmoid function)と呼ばれている
+        - また、$\mu=\sigma(\eta)$の関係がある
+- 続いて、**多項分布**(multinomial distribution)について考える
+
+    $$
+    p(\mathbf{x}|\boldsymbol\mu) = \prod_{k=1}^M\mu_k^{x_k}
+    $$
+
+    - これを上記の式の形になるように変形する
+
+        $$
+        p(\mathbf{x}|\boldsymbol\eta) = \bigg(1+\sum_{k=1}^{M-1}\exp(\eta_k)\bigg)^{-1}\exp(\boldsymbol\eta^\top\mathbf{x})
+        $$
+
+    - 但し、$\eta_k$と$\mu_k$は以下の関係にある
+
+        $$
+        \mu_k = \frac{\exp(\eta_k)}{1+\sum_j\exp(\eta_j)}
+        $$
+
+        - これは、**ソフトマックス関数**(softmax function)や**正規化指数関数**(normalized exponential function)と呼ばれている
+- 最後にガウス分布について考える
+
+    $$
+    \mathcal{N}(x~|~\mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\Bigl\{-\frac{1}{2\sigma^2}(x-\mu)^2\Bigr\}
+    $$
+
+    - これを上記の式の形になるように変形する
+
+        $$
+        \mathcal{N}(x~|~\mu, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}}\exp\Bigl\{-\frac{1}{2\sigma^2}x^2+\frac{\mu}{\sigma^2}x-\frac{1}{2\sigma^2}\mu^2\Bigr\}
+        $$
+
+    - これは以下のような対応関係で見ると良い
+        - 🧐 二次形式の定数部分は外に出す
+
+        $$
+        \begin{align*}
+        \boldsymbol\eta &= \begin{pmatrix}\mu/\sigma^2\\-1/2\sigma^2\end{pmatrix}\\
+        \mathbf{u}(x) &= \begin{pmatrix}x\\x^2\end{pmatrix}\\
+        h(x) &= (2\pi)^{-1/2} \\
+        g(\boldsymbol\eta) &= (-2\eta_2)^{1/2}\exp\bigg(\frac{\eta_1^2}{4\eta_2}\bigg)
+        \end{align*}
+        $$
+
+
+### 2.4.1: 最尤推定と十分統計量
+
+一般的な指数型分布族のパラメータベクトルを最尤推定で推定する
+
+- $\boldsymbol\eta$ についての勾配を考えると、以下のような関係が得られる
+
+    $$
+    -\nabla\ln g(\boldsymbol\eta) = \mathbb{E}[\mathbf{u}(\mathbf{x})]
+    $$
+
+    - 🧐 要するに、$\mathbf{u}(\mathbf{x})$ の期待値は正規化項のみで計算できる
+    - $\mathbf{u}(\mathbf{x})$ の共分散を含む高次のモーメントは$g(\boldsymbol\eta)$の２次形式で表せる
+        - 指数型分布族の分布を正規化できれば、その分布のモーメントは単に微分すればいつでも計算できる
+- 独立に同分布に従うデータの集合$\mathbf{X = \{x_1, ..., x_N\}}$を考える
+    - 上記と同様に$\boldsymbol\eta$ についての勾配を考えるので、先ほど得られた関係式を用いると
+
+        $$
+        -\nabla\ln g(\boldsymbol\eta_{ML}) = \frac{1}{N}\sum_{n=1}^N\mathbf{u}(\mathbf{x}_n)
+        $$
+
+        - この式を解けば$\boldsymbol\eta_{ML}$が得られる
+        - 最尤推定解はデータ$\sum_{n=1}^N\mathbf{u}(\mathbf{x}_n)$にのみ依存し、個々には依存しない
+            - $\sum_{n=1}^N\mathbf{u}(\mathbf{x}_n)$を分布の**十分統計量**(sufficient statistic)と呼ぶ
+            - データの和だけ保存していれば良いことがわかる
+
+### 2.4.2: 共役事前分布
+
+一般的な指数型分布族の共役な事前分布について考える
+
+- 事前分布は以下のように与えられる
+
+    $$
+    p(\boldsymbol\eta|\boldsymbol\chi, \nu) = f(\boldsymbol\chi, \nu)g(\boldsymbol\eta)^\eta\exp\{\nu\boldsymbol\eta^\top\boldsymbol\chi\}
+    $$
+
+    - $f(\boldsymbol\chi, \nu):$  正規化係数
+- 上記の事前分布を用いて事後分布を計算することで共役性を確認する
+
+    $$
+    p(\boldsymbol\eta|\mathbf{X}, \boldsymbol\chi, \nu) = g(\boldsymbol\eta)^{\nu+N}\exp\bigg\{\boldsymbol\eta^\top\bigg(\sum_{n=1}^N\mathbf{u}(\mathbf{x}_n)+\nu\boldsymbol\chi\bigg)\bigg\}
+    $$
+
+    - これは事前分布と同じ関数形
+
+### 2.4.3: 無情報事前分布
+
+🧐 この章は全体的に何を言っているかあんまり分からんかった
+
+分布がどのような形状になるべきかについて知見があまり無い場合の対処法
+
+- 事前分布への影響がなるべく少ないようにした事前分布である、**無情報事前分布**(noninformative prior distribution)を利用する
+    - 「データ自身に語らせる(letting the data speak for themselves)」という言葉で象徴されることもある
+- 事後分布への影響を小さくするのに適切な事前文として、$p(\lambda)=\text{const}$ を用いたい
+    - しかし、連続パラメータの場合には大きな潜在的問題点が２つ存在する
+    1. $\lambda$の定義域が融解でないなら、$\lambda$上の積分が発散してしまう
+        - **変則事前分布**(不完全事前分布; improper prior)と呼ばれている
+        - 事後分布が**適切**(proper)であれば、用いられることもある
+    2. 非線形な変数変換をした時の確率密度の変化に起因する
+
+        $$
+        p_{\eta}(\eta) = p_{\lambda}(\lambda)\Big|\frac{d\lambda}{d\eta}\Big| = p_{\lambda}(\eta^2)2\eta \propto \eta
+        $$
+
+        - $\lambda = \eta^2$のような変換をすると、変換先は$\eta$に依存する形になってしまう
+- 2種類の無情報事前分布の例を紹介する
+    1. 確率密度が $p(x|\mu) = f(x-\mu)$ で書ける場合を考える
+        - $\mu:$  **位置パラメータ**(location parameter)
+        - このような確率密度の族は**平行移動不変性**(並進不変性; translation invariance)を持つという
+            - $x$を定数分移動させたとしても元の変数と同じ形状を保つ
+        - このような確率密度の事前分布を考えたい
+            - $A\leq\mu\leq B$ に入る確率と$A-c\leq\mu\leq B-c$ に入る確率が一致する
+                - 🧐 平行移動不変性を持つ確率密度の事前分布が持つ特徴？
+                - 🧐 恐らく平行移動不変性がピンと来ていない
+                    - 🧐 $x$を1増やすのと$\mu$を1減らすのは同じ
+                    - 🧐 $\mu$の値が重要ではなく、”幅”が大事？
+            - $p(\mu-c) = p(\mu)$ → $p(\mu)=\text{const}$
+                - 🧐 変則事前分布なはず…
+        - 位置パラメータの例: ガウス分布の平均$\mu$
+            - パラメータ$\mu$の共役事前分布もまたガウス分布 $p(\mu|\mu_0, \sigma^2_0) = \mathcal{N}(\mu|\mu_0, \sigma^2_0)$
+            - 事前分布に対して$\sigma^2_0\rightarrow\infin$を考えると無情報事前分布となる
+                - $\mu_N, \sigma^2_N$の式を考えるとわかる
+                    - 🧐 $\lim_{\sigma_0^2\rightarrow\infin}p(\mu|\mu_0, \sigma^2_0)$ は確かに定数分布になりそう
+    2. 確率密度が $p(x|\sigma) = f(x/\sigma)/\sigma$ で書ける場合を考える
+        - $\sigma:$  **尺度パラメータ**(scale parameter)
+        - このような確率密度の族は尺度**不変性**(scale  invariance)を持つという
+            - $x$を定数倍させたとしても元の変数と同じ形状を保つ
+        - このような確率密度の事前分布を考えたい
+            - $A\leq\sigma\leq B$ に入る確率と$A/c\leq\sigma\leq B/c$ に入る確率が一致する
+            - $p(\sigma) = f(\sigma/c)/c$ → $p(\ln \sigma)=\text{const}$
+                - $0\leq\sigma\leq\infin$ での分布の積分が発散するため変則事前分布
+        - 尺度パラメータの例: ガウス分布の標準偏差$\sigma$
+            - 位置パラメータ$\mu$は考慮済みであることに注意
+            - パラメータ$\sigma$の共役事前分布はガンマ分布 $\text{Gam}(\lambda|a_0, b_0)$
+                - 但し、$\lambda=1/\sigma^2$
+            - 事前分布に対して$a_0=b_0=0$を考えると無情報事前分布となる
+                - $a_N, b_N$の式を考えるとわかる
+
+## 2.5: ノンパラメトリック法
+
+分布の形状を僅かにしか仮定しない手法について考える
+
+- 最もシンプルな**ヒストグラム密度推定法**(histogram density estimation method)を考える
+    - $x$ を幅 $\Delta_i$の別々の区間に区切り、$i$ 番目の区間に入った観測地の数 $n_i$ を考える
+    - 確率密度は以下の通りに与えられる
+
+        $$
+        p_i = \frac{n_i}{N\Delta_i}
+        $$
+
+        - 区間の幅は全て均一の$\Delta$になるように選ばれることが多い
+        - $\Delta$は非常に小さいと密度モデルはまばらなトゲトゲ状になり、大きすぎるとなだらかになりすぎてデータの特徴が損なわれてしまうことに注意するべきである
+        - 元のデータ集合自体は破棄しても、解析が可能という特徴がある
+            - データ点が逐次的に与えられても容易に適用できる
+        - 但し、ほとんどの密度推定の応用問題には適さない
+            - 推定した密度が区間の縁で不連続になる
+            - 次元数の増加に伴う計算規模の増大
+        - ヒストグラム密度度推定法から重要なことが２つわかる
+            - 特定の位置の確率密度の推定のためには、局所的な近傍にある他のデータ点も考慮する必要がある
+            - **平滑化パラメータ**(smoothing parameter)の値は大きすぎても小さすぎてもだめ
+                - 今回は区間の幅$\Delta$が平滑化パラメータ
+
+### 2.5.1: カーネル密度推定法
+
+観測値の集合が得られていて、そこから未知の確率密度を推定したいとする
+
+- $\mathbf{x}$を含む小さな領域$\mathcal{R}$を考えると、この領域に割り当てられる確率は
+
+    $$
+    P = \int_{\mathcal{R}}p(\mathbf{x})~d\mathbf{x}
+    $$
+
+    で与えられる
+
+    - 観測値の数が$N$、あるデータ点が領域$\mathcal{R}$に属する確率を$P$とした時、領域$\mathcal{R}$内の点の総数$K$は二項分布に従う
+
+        $$
+        \text{Bin}(K|N, P) = \frac{N!}{K!(N-K)!}P^K(1-P)^{N-K}
+        $$
+
+        - 二項分布の期待値より$\mathbb{E}[K/N] = P$になるため
+
+            $$
+            K \simeq NP
+            $$
+
+        - また、確率密度$p(\mathbf{x})$が一定と満たせる程、領域$\mathcal{R}$が小さいと仮定できるのであれば
+
+            $$
+            P \simeq p(\mathbf{x})V
+            $$
+
+            が成り立つ
+
+        - これらの式から以下のように確率密度を計算できる
+
+            $$
+            p(\mathbf{x}) = \frac{K}{NV}
+            $$
+
+            - $V$が大きいほど、確率密度が小さくなる
+                - 🧐 領域内のどこに属するかは分かりずらいということ？
+                - 🧐 $N=K$ならば全体の体積$V$が小さいほど特定できている
+                    - 🧐 正の値全てを考慮した範囲$V_1$に全てのデータが含まれているよりも、0以上1以下の範囲$V_2$に全てのデータが含まれている方がデータ点$\mathbf{x}$がどこに属するかの情報を得れている
+                    - 🧐 全体の体積が”1”であると仮定している
+            - 上記の式は**相反する二つの仮定**に依存していることに注意すべきである
+                1. 領域内では近似的に密度が一定と見做せるほど十分に領域$\mathcal{R}$が小さい
+                2. 二項分布が鋭く尖るほどに十分に多くの$K$個の点が領域の内に存在する
+            - 🧐 直感的に上記の式を見るなら、$Vp(\mathbf{x}) = K/N$ とみた方が良い
+                - 🧐 $Vp(\mathbf{x}):$  (領域$\mathcal{R}$の体積)*(データ点$\mathbf{x}$が存在する確率の密度分布)
+            - 上記の結果の活用方法は以下の２通り
+                1. $K$を固定し、データから$V$の値を推定する → $**K$近傍法**
+                2. $V$を固定し、データから$K$の値を推定する → **カーネル推定法**
+- カーネル方について詳細な議論を始める
+    - 確率密度を求めたいデータ点を$\mathbf{x}$、この点を中心とする小さな超立方体を領域$\mathcal{R}$とする
+    - また、以下のような原点を中心とする単位立方体を表す関数(→**カーネル関数**(kernel function))を定義しておく
+        - このような用途では**Parzen窓**(Parzen window)とも呼ばれる
+
+        $$
+        k(\mathbf{u}) = \left\{ \begin{align*}
+        &1, ~~~~ (|u_i| \leq 1/2) \\ &0, ~~~~ (otherwise)
+        \end{align*} \right.
+        $$
+
+    - 上記の関数を用いると、一辺が$h$の立方体内部の総点数は以下の通り
+
+        $$
+        K = \sum_{n=1}^N k\bigg(\frac{\mathbf{x}-\mathbf{x}_n}{h}\bigg)
+
+        $$
+
+        - これより、確率密度の近似が可能
+- カーネル密度推定法でも大きな問題点が１つ存在する
+    - (ヒストグラム法と同じ)立方体の縁で人為的な不連続が生じてしまう
+        - より滑らかなカーネル関数を選べば、より滑らかな密度モデルが得られる
+        - 例: ガウスカーネル
+- 訓練段階では全く計算をしなくて済むという大きな利点がある一方、密度の評価にかかる計算コストがデータ集合の大きさに比例するという大きな欠点が存在する
+
+### 2.5.2: 最近傍法
+
+カーネル密度推定法と似て非なる手法を考える
+
+- 以下は局所密度推定の一般的な結果の再掲である
+
+    $$
+    p(\mathbf{x}) = \frac{K}{NV}
+    $$
+
+    - $V$を固定し、データから$K$の値を推定するはカーネル密度推定法であったが、逆の$V$を固定し、データから$V$の値を推定する$**K$近傍法**について考える
+    - $K$の値は平滑化の度合いを決めている
+- $K$近傍法はクラス分類問題に拡張できる
+    - クラス$C_k$の中に$N_k$個の点があるデータ集合を考える
+    - 新たなデータ点$\mathbf{x}$に対して、近くのデータ点$K$個を含むような体積$V$の球を考える
+        - この球が各クラス$\mathcal{C}_k$のデータを$K_k$ずつ含んでいたとすると、各クラスの密度の推定値は以下のように得られる
+
+            $$
+            p(\mathbf{x}|\mathcal{C}_k) = \frac{K_k}{N_kV}
+            $$
+
+            - 🧐 クラス$\mathcal{C}_k$と上記の説明で利用されていた領域$R$は同じようなもの
+        - 事前分布は、データ点$\mathbf{x}$が増える前の各クラスのデータ点の存在割合
+
+            $$
+            p(\mathcal{C}_k) = \frac{N_k}{\sum_kN_k}
+            $$
+
+        - これらに対して事後分布は以下の通り
+
+            $$
+            p(\mathcal{C}_k|\mathbf{x}) = \frac{K_k}{K}
+            $$
+
+- $K$近傍法もカーネル密度推定法もデータ集合全体を保持しなくてはならない
+    - ノンパラメトリック方の非常に強い制限
+
+     ☞  柔軟性があり、訓練集合の大きさとは独立にモデルの複雑度を調整できるような密度モデルを見つける必要がある
