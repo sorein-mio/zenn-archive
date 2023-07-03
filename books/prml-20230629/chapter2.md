@@ -136,7 +136,7 @@ title: "第２章: 確率分布"
 
 様々な場面で現れ、利用価値も様々な**ガウス分布**(Gaussian distribution)を紹介
 
-- エントロピーを最大化する分布はガウス分布(☞[1.6節](https://www.notion.so/PRML-a508bc1b861a4562bc8a13f42dbe473e?pvs=21))
+- エントロピーを最大化する分布はガウス分布
 - 確率変数の和を考える時も現れる
     - ラプラスによる**中心極限定理**(central limit theorem)によれば、ある緩やかな条件の下で足し合わされる変数の数が増えるに従って、徐々にガウス分布に従うようになる
 - ガウス分布の幾何的な形状
@@ -202,12 +202,12 @@ title: "第２章: 確率分布"
             - 単位行列に比例: $\Sigma = \sigma^2\mathbf{I}$
                 - しかし、形式を大きく制限したためにデータ中の興味深い相関を捉える能力を制限してしますという問題もある
     - ガウス分布は本質的に**単峰形**(極大値が１つ)という制限がある
-        - 上記の問題点に対処するために**潜在変数**(latent variable)(**隠れ変数**(hidden variable)や**非観測変数**(unobserved variable)ともいう)を導入する(☞[2.3.9節](https://www.notion.so/PRML-a508bc1b861a4562bc8a13f42dbe473e?pvs=21))
+        - 上記の問題点に対処するために**潜在変数**(latent variable)(**隠れ変数**(hidden variable)や**非観測変数**(unobserved variable)ともいう)を導入する
             - データ集合中の支配的な相関を捉えることが可能
 - これら２つのアプローチを組み合わせたり、拡張したりして、階層的モデル群を形成することにより、現実の問題に幅広く適用することができるようになる
-    - **マルコフ確率場**(Markov random field)(☞[8.3節](https://www.notion.so/PRML-vo-2-e28574fff53f4d318666eea832d67241?pvs=21))
+    - **マルコフ確率場**(Markov random field)
         - 画像の確率モデルとして幅広く利用されている
-    - **線形動的システム**(linear dynamical system)(☞[13.3節](https://www.notion.so/PRML-vo-2-e28574fff53f4d318666eea832d67241?pvs=21))
+    - **線形動的システム**(linear dynamical system)
         - トラッキングの応用など時系列データのモデル化に用いられている
 
 ### 2.3.1: 条件付きガウス分布
@@ -309,7 +309,7 @@ $$
 p(\mathbf{x}_a) = \int p(\mathbf{x}_a, \mathbf{x}_b) ~d\mathbf{x}_b
 $$
 
-- こちらでも[2.3.1節](https://www.notion.so/PRML-27b7e05702d34ebf9474a830b650cab7?pvs=21)と同様に二次形式に着目し、同様の手順を踏まえる
+- こちらでも2.3.1節と同様に二次形式に着目し、同様の手順を踏まえる
 - 結果は以下の通り
 
     $$
@@ -395,7 +395,7 @@ goal:
         $$
 
 - 次に周変化した周辺分布$p(\mathbf{y})$を考える
-    - [2.3.2節](https://www.notion.so/PRML-27b7e05702d34ebf9474a830b650cab7?pvs=21)で得られた結果を活用する
+    - 2.3.2節で得られた結果を活用する
 
         $$
         \begin{align*}
@@ -406,7 +406,7 @@ goal:
 
         - 特に$\mathbf{A=I}$ (2つのガウス分布$\mathcal{N}(\mathbf{x|\boldsymbol\mu, \Lambda^{-1}}), \mathcal{N}(\mathbf{y|b, L^{-1}})$のたたみ込みになる) の場合は、平均及び共分散行列は元のガウス分布の和になる
 - 最後に条件付き分布$p(\mathbf{x}|\mathbf{y})$を考える
-    - [2.3.1節](https://www.notion.so/PRML-27b7e05702d34ebf9474a830b650cab7?pvs=21)で得られた結果を活用する
+    - 2.3.1節で得られた結果を活用する
 
         $$
         \begin{align*}
