@@ -115,7 +115,7 @@ title: "第２章: 統計的因果推論の基礎"
 
 上記の構造方程式に対応する因果グラフは以下の通り
 
-![](/images/casual-discovery-20231016/chapter2-1.png)
+![](/images/study-record-causal-discovery/chapter2-1.png)
 
 - このように、$e_x, e_y$間は必ずしも独立とは限らない
 - また、変数$x, y$は**内生変数**(endogenous variable)と呼ばれ、$e_x, e_y$は**外生変数**(exogenous variable)と呼ばれる

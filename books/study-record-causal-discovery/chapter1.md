@@ -36,7 +36,7 @@ title: "第１章: 統計的因果探索の出発点"
 
 正の相関には３つの表現方法がある
 
-![](/images/casual-discovery-20231016/chapter1-1.png)
+![](/images/study-record-causal-discovery/chapter1-1.png)
 
 1. チョコの数が賞の数に影響を与えている場合
 2. 賞の数がチョコの数に影響を与えている場合
@@ -68,7 +68,7 @@ title: "第１章: 統計的因果探索の出発点"
     - 線形性を仮定（説明上の都合）
 - 1.2節 で説明された３つのケースをそれぞれ数式化し、それらを図示すると以下のようになる
 
-    ![](/images/casual-discovery-20231016/chapter1-2.png)
+    ![](/images/study-record-causal-discovery/chapter1-2.png)
 
     - 全て正の相関を持つ
 
