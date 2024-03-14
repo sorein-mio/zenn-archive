@@ -178,7 +178,7 @@ $$
     - $z:$  GDP
         - 未観測変数であるが、これを観測変数として扱う
 
-    ![Adobe Scan 2023年10月11日 (1)-1.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/87a3b481-5989-4cd0-b1b1-ddf649025575/8080d6fb-a86a-450c-8e44-fc32c6826116/Adobe_Scan_2023%E5%B9%B410%E6%9C%8811%E6%97%A5_(1)-1.png)
+    ![](/images/study-record-causal-discovery/chapter3-1.png)
 
 - 本来未観測共通原因である $z$ が今回は観測済みであるため、以下のように解くべき問題を言い換えることが可能
 
@@ -332,7 +332,7 @@ $$
 - 因果的マルコフ条件の意味を具体例を交えて説明する
     - 以下の様な構造方程式モデルを考える
 
-        ![Adobe Scan 2023年10月17日-1.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/87a3b481-5989-4cd0-b1b1-ddf649025575/4c06d668-c0af-43e1-a95a-fad7be37aab4/Adobe_Scan_2023%E5%B9%B410%E6%9C%8817%E6%97%A5-1.png)
+        ![](/images/study-record-causal-discovery/chapter3-2.png)
 
         - $x_2$ の親にあたる観測変数は $x_1$ である
         - $x_3$ は $x_1$ の子孫ではない
@@ -371,7 +371,7 @@ $$
 - 因果的マルコフ条件を利用した因果グラフの推測を具体例を用いて説明する
     - 下記のような構造方程式モデルを正しいとして観測変数 $\bm{x}$ の分布 $p(\bm{x})$ が決定される
 
-        ![Adobe Scan 2023年10月17日 (1)-1.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/87a3b481-5989-4cd0-b1b1-ddf649025575/a8d57460-88d7-4dc4-a838-6ec8344d8db0/Adobe_Scan_2023%E5%B9%B410%E6%9C%8817%E6%97%A5_(1)-1.png)
+        ![](/images/study-record-causal-discovery/chapter3-3.png)
 
     - 因果的マルコフ条件より $x_2$ と $x_3$ の間の条件付き独立性のみノンパラメトリックアプローチにおいては利用可能
         - 忠実性の仮定より、これ以外の条件付き独立性は存在しないと言える
