@@ -288,6 +288,7 @@ g = sns.catplot(
     height=3,        # 各グラフの高さ
     aspect=1.0,      # 各グラフのアスペクト比 (大きいほど横長)
     errwidth=1.2,    # エラーバーの太さ
+    # palette="Set2",  # カラーパレット（デフォルトが良いのでコメントアウト）
 )
 g.tick_params(axis="x", rotation=30)
 ```
