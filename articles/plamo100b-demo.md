@@ -1,6 +1,6 @@
 ---
 title: "PLaMo-100Bのβ版トライアルAPIを用いてデモ用アプリを作ってみた"
-emoji: "😈"
+emoji: "🙆"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["LLM", "Python", "PLaMo", "Streamlit", "生成AI"]
 published: true
