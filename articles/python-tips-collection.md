@@ -16,7 +16,7 @@ seabornは、`sns.load_dataset`関数を用いて、データを読み込むこ�
 ```python
 import seaborn as sns
 
-df = sns.load_dataset('tips')
+df = sns.load_dataset("tips")
 ```
 :::details データの詳細
 |     |   total_bill |   tip | sex    | smoker   | day   | time   |   size |
@@ -275,21 +275,21 @@ kindでグラフの種類を指定可能であり、散布図`"strip"`、箱ひ�
 ```python
 import seaborn as sns
 
-df = sns.load_dataset('diamonds')
+df = sns.load_dataset("diamonds")
 
 g = sns.catplot(
-    data=df,        # データセットを指定
-    kind='bar',     # グラフの種類を選択
-    x='cut',        # X軸に'cut'を設定
-    y='carat',      # Y軸に'carat'を設定
-    hue='color',    # 'color'に基づいて色分け
-    col='clarity',  # 'clarity'に基づいて列を分ける
-    col_wrap=4,     # 一行あたりの列数を4に設定
-    height=3,       # 各グラフの高さ
-    aspect=1.0,     # 各グラフのアスペクト比 (大きいほど横長)
-    errwidth=1.2,   # エラーバーの太さ
+    data=df,         # データセットを指定
+    kind="bar",      # グラフの種類を選択
+    x="cut",         # X軸に"cut"を設定
+    y="carat",       # Y軸に"carat"を設定
+    hue="color",     # "color"に基づいて色分け
+    col="clarity",   # "clarity"に基づいて列を分ける
+    col_wrap=4,      # 一行あたりの列数を4に設定
+    height=3,        # 各グラフの高さ
+    aspect=1.0,      # 各グラフのアスペクト比 (大きいほど横長)
+    errwidth=1.2,    # エラーバーの太さ
 )
-g.tick_params(axis='x', rotation=30)
+g.tick_params(axis="x", rotation=30)
 ```
 ![](/images/python-tips-collection/catplot.png)
 
@@ -309,7 +309,7 @@ sns.move_legend(
 ![](/images/python-tips-collection/legend.png)
 
 ### 保存したpdfに凡例が表示されない時の対処法
-グラフをg.fig.savefig()で保存した際に、凡例が表示されないことがある。その場合は、`bbox_inches='tight'`を追加する。
+グラフをg.fig.savefig()で保存した際に、凡例が表示されないことがある。その場合は、`bbox_inches="tight"`を追加する。
 ```python
-g.fig.savefig("name.pdf", bbox_inches='tight')
+g.fig.savefig("name.pdf", bbox_inches="tight")
 ```
