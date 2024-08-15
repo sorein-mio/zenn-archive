@@ -6,11 +6,11 @@ topics: ["Github", "Python", "静的解析", "Tech"]
 published: true
 ---
 ## はじめに
-
 Pythonを書く際に、よく使うテクニックやツールについてまとめました。特に、自分が今まで困ってきた内容を中心に取り上げており、自分のためのメモとしても活用しています。
 
 ## Seaborn
 SeabornはPythonで利用可能なデータ可視化ライブラリです。Matplotlibのラッパーライブラリであるため、Matplotlibの機能を利用することができます。Seabornは、データの可視化を行う際に、Matplotlibよりも簡単に利用できるため、データの可視化を行う際には、Seabornをよく利用しています。
+
 ### データの読み込み
 seabornは、`sns.load_dataset`関数を用いて、データを読み込むことができます。以下のコードを実行することで、`tips`データを読み込むことができます。
 ```python
@@ -268,6 +268,7 @@ df = sns.load_dataset('tips')
 :::
 他にも、アヤメのデータ`irix`や、タイタニックのデータ`titanic`などがあります。
 使用可能なデータセットは、`sns.get_dataset_names()`で確認できます。
+
 ### catplotの使い方
 catplotとは、洗練された可視化を短いコードで実現可能な関数です。
 kindでグラフの種類を指定可能であり、散布図`"strip"`、箱ひげ図`"box"`、バイオリンプロット`"violin"`、棒グラフ`"bar"`、ポイントプロット`"point"`、カウントプロット`"count"`があります。
@@ -291,6 +292,7 @@ g = sns.catplot(
 g.tick_params(axis='x', rotation=30)
 ```
 ![](/images/python-tips-collection/catplot.png)
+
 ### 凡例の位置を変更する方法
 凡例はデフォルトで、グラフの右側に表示される。位置を変更したい時は、`sns.move_legend`を用いる。
 ```python
@@ -305,6 +307,7 @@ sns.move_legend(
 )
 ```
 ![](/images/python-tips-collection/legend.png)
+
 ### 保存したpdfに凡例が表示されない時の対処法
 グラフをg.fig.savefig()で保存した際に、凡例が表示されないことがある。その場合は、`bbox_inches='tight'`を追加する。
 ```python
