@@ -12,6 +12,9 @@ published: true
 ### [アカデミックヤクザにキレられないためのLaTeX論文執筆メソッド](https://qiita.com/suigin/items/10960e516f2d44f6b6de)
 - 執筆者：[suigin](https://qiita.com/suigin)さん
 - サイト：Qiita
+### [【LaTeX】\footnoteも\refしたい](https://qiita.com/migawariw/items/ac2b940f5dc7e870850a)
+- 執筆者：[みがわり](https://qiita.com/migawariw)さん
+- サイト：Qiita
 ## 機械学習
 ### [『パターン認識と機械学習』の攻略ノート：記事一覧](https://www.anarchive-beta.com/entry/2021/01/06/092619)
 - 執筆者：[しょこ](https://www.anarchive-beta.com/about)さん
