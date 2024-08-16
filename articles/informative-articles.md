@@ -32,3 +32,6 @@ published: true
 ### [エラーや実行完了をLINEで通知する【Python】](https://qiita.com/Jun-T/items/a63eb60ff75ede0ada04)
 - 執筆者：[T Jun](https://qiita.com/Jun-T)さん
 - サイト：Qiita
+## デザイン
+### [コストや時間の削減表現のテンプレート配布します！](https://raku-pre.com/cost_reduction/)
+- サイト：[ラクプレ](https://raku-pre.com/)
