@@ -8,9 +8,9 @@ This repository, "zenn-archive", is used to manage and publish articles on [Zenn
 
 ## Getting Started
 Run the development server:
-  ```bash
-  npx zenn preview
-  ```
+```bash
+npx zenn preview
+```
 - Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
 
 When you want to write a new article:
