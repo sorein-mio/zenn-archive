@@ -18,7 +18,9 @@ ignorePublish: false
 [^1]: [PFEが開発する大規模言語モデルPLaMo β版の無料トライアルの申込受付を開始](https://www.preferred.jp/ja/news/pr20240807/)
 
 https://plamo100b-demo.streamlit.app/
+
 また、作成したソースコードについてはGitHubにて公開しています。興味のある方は以下のリンクからご覧ください。
+
 https://github.com/C-Naoki/PLaMo-100B
 
 ## PLaMo-100Bとは？
