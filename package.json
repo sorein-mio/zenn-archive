@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "zenn-cli": "^0.1.157"
+  },
+  "devDependencies": {
+    "@qiita/qiita-cli": "^1.5.0"
   }
 }
