@@ -1,6 +1,7 @@
 import { convertFrontmatter } from './convert-frontmatter'
 import { replaceImagePaths } from './replace-image-paths'
 import { replaceMessageToNote } from './replace-message-to-note'
+import { replaceToggle } from './replace-toggle'
 
 export function zennMarkdownToQiitaMarkdown(
   inputContent: string,
@@ -10,6 +11,7 @@ export function zennMarkdownToQiitaMarkdown(
     convertFrontmatter(outputPath),
     replaceImagePaths,
     replaceMessageToNote,
+    replaceToggle,
   ]
 
   let output = inputContent
