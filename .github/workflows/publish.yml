@@ -27,3 +27,4 @@ jobs:
         with:
           qiita-token: ${{ secrets.QIITA_TOKEN }}
           root: "./qiita"
+          commit-message: "🔄 auto: updated by qiita-cli"
