@@ -50,7 +50,7 @@ jobs:
         run: |
           git config --local user.name 'naoki'
           git config --local user.email 'u429561d@ecs.osaka-u.ac.jp'
-          git add README.md
+          git add qiita/public/*.md
           git commit -m '🔄 auto: convert Zenn articles to Qiita articles'
           git push
         if: steps.files.outcome == 'success'
