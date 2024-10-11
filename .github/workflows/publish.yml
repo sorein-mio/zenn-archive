@@ -33,9 +33,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run conversion to Zenn format
-        run: npm run zenn
-
       - name: Get changed markdown files
         id: files
         run: |
