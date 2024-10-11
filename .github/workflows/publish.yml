@@ -37,23 +37,23 @@ jobs:
         id: files
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep "^articles/.*\.md$" > changed_files.txt
-          echo "CHANGED_FILES=$(cat changed_files.txt)" >> $GITHUB_ENV
+        continue-on-error: true
 
       - name: Run
-        if: env.CHANGED_FILES != ''
         run: |
           for file in $(cat changed_files.txt); do
             sh bin/ztoq.sh "$file"
           done
+        if: steps.files.outcome == 'success'
 
       - name: Commit files
-        if: env.CHANGED_FILES != ''
         run: |
           git config --local user.name 'naoki'
           git config --local user.email 'u429561d@ecs.osaka-u.ac.jp'
           git add README.md
           git commit -m '🔄 auto: convert Zenn articles to Qiita articles'
           git push
+        if: steps.files.outcome == 'success'
 
       - name: Publish Qiita articles
         uses: increments/qiita-cli/actions/publish@v1
