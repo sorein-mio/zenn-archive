@@ -2,7 +2,7 @@
 title: "参考になった記事 覚書"
 emoji: "🌝"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Github", "Python", "静的解析", "Tech"]
+topics: ["論文", "GitHub", "機械学習", "ソフトウェア開発", "Tech"]
 published: true
 ---
 
