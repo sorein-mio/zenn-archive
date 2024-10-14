@@ -1,16 +1,17 @@
 ---
 title: PLaMo-100Bのβ版トライアルAPIを用いてデモ用アプリを作ってみた
-private: false
 tags:
-  - LLM
   - Python
-  - PLaMo
   - Streamlit
   - 生成AI
-updated_at: '2024-10-05T06:03:50+09:00'
+  - LLM
+  - PLaMo
+private: false
+updated_at: '2024-10-15T01:16:38+09:00'
 id: 5c1f5bb06da94cc00b4b
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 ## はじめに
 2024年2月から株式会社Preferred Network（以下、PFN）の子会社である株式会社Preferred Elements（以下、PFE）にて開発されているPLaMoという言語モデルのβ版トライアルAPIの発行が2024年8月9日から順次発行が開始されました[^1]。この記事では、この言語モデルおよび、β版トライアルAPIを利用して作成したデモ用アプリについて簡単にご紹介いたします。アプリについては以下のリンクからお試しいただけます。ただし、β版トライアルAPIの利用自体は期間限定であるため、期間外はご利用いただけなくなります。ご了承ください。
