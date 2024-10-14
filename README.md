@@ -1,7 +1,7 @@
 # zenn-archive
 ![](https://github.com/C-Naoki/zenn-archive/actions/workflows/publish.yml/badge.svg)
 
-This repository is used to manage and publish articles on [Zenn](https://zenn.dev/) using [Zenn CLI](https://github.com/zenn-dev/zenn-editor) and GitHub. Primarily, it's a place to share code I've created and record what I've learned. This serves as a personal archive that others can also learn from. They are then synced with Zenn for publication. Click [here](https://zenn.dev/naoki0103) for details.
+This repository is used to manage and publish articles on [Zenn](https://zenn.dev/) and [Qiita](https://qiita.com/). Primarily, it's a place to share the code I've created and record what I've learned. This serves as a personal archive from which others can also learn. You can find my pages on Zenn [here](https://zenn.dev/naoki0103) and on Qiita [here](https://qiita.com/C-Naoki), respectively.
 
 ## Directory Structure
 
@@ -10,7 +10,6 @@ This repository is used to manage and publish articles on [Zenn](https://zenn.de
 - `books/`: It contains Zenn books. The structure should follow the Zenn book guidelines.
 - `images/`: It contains images used in articles and books.
 - `qiita/`: It contains Qiita articles, which are generated from Zenn articles by `ztoq.sh`.
-- `scripts/`: It is used to convert Zenn articles to Qiita articles.
 
 ## Getting Started
 Run the development server:
@@ -28,9 +27,3 @@ npx zenn new:article --slug 記事のスラッグ --title タイトル --type id
     - `--title`: The title of the article.
     - `--type`: The type of the article. The options should be chosen from `tech`, `idea`.
     - `--emoji`: The emoji of the article.
-
-## References
-We appreciate the following articles for providing useful information:
-
-- [zennに記事を投稿したらqiitaにも同時に投稿されるツールを作った話](https://qiita.com/shunk_jr/items/7d1029cae8f83ee8fd84)
-- [Zenn / Qiitaに投稿する同じ記事を一元管理するGitHubリポジトリを作りました](https://zenn.dev/ot07/articles/zenn-qiita-article-centralized)
