@@ -1,17 +1,16 @@
 ---
 title: PLaMo-100Bのβ版トライアルAPIを用いてデモ用アプリを作ってみた
+private: false
 tags:
+  - LLM
   - Python
+  - PLaMo
   - Streamlit
   - 生成AI
-  - LLM
-  - PLaMo
-private: false
 updated_at: '2024-10-05T06:03:50+09:00'
 id: 5c1f5bb06da94cc00b4b
 organization_url_name: null
 slide: false
-ignorePublish: false
 ---
 ## はじめに
 2024年2月から株式会社Preferred Network（以下、PFN）の子会社である株式会社Preferred Elements（以下、PFE）にて開発されているPLaMoという言語モデルのβ版トライアルAPIの発行が2024年8月9日から順次発行が開始されました[^1]。この記事では、この言語モデルおよび、β版トライアルAPIを利用して作成したデモ用アプリについて簡単にご紹介いたします。アプリについては以下のリンクからお試しいただけます。ただし、β版トライアルAPIの利用自体は期間限定であるため、期間外はご利用いただけなくなります。ご了承ください。
@@ -37,9 +36,12 @@ PFNのブログにて公開されている実験を簡易的に紹介いたし�
 
 このように、PLaMo-100B-Instruct（事後学習済みのPLaMo-100B）は全体的にGPT-4モデルを上回る性能を示しています。ただし、MR (Mathematical Reasoning) カテゴリのデータに対しては、GPT-4モデルを大きく下回る性能となってしまっているようです。
 
-また、過去にPFNが開発していた言語モデルであるPLaMo-13B[^3]もあるのですが、このモデルとの比較実験の結果が見受けられませんでした。どの程度性能が向上しているのかどうか確認してみたいところです。加えて、表中のGPT-4はGPT-4oを指しているのかどうかに関する言及も見つけることができませんでいた。2024年8月現在、最新手法といえば、Gemini-1.5-Proをはじめとして、GPT-4oやClaude 3.5 Sonetなどが挙げられる[^4]と思いますが、どの程度の性能差なのか純粋に気になります。
-[^3]: [PLaMo-13Bを公開しました](https://tech.preferred.jp/ja/blog/llm-plamo/)
-[^4]: [LMSYS Chatbot Arena Leaderboard](https://chat.lmsys.org/?leaderboard)
+2024年10月15日追記：数学推論タスクの精度向上に関する検討がなされているようです[^3]。直接的にPLaMo-100Bの精度向上のための取り組みではないようですが、今後の性能向上に期待が持てる結果となっています。
+[^3]: [LLMにおける合成データセットによる数学推論タスクの精度向上の検討](https://tech.preferred.jp/ja/blog/llm-synthetic-dataset-for-math/)
+
+また、過去にPFNが開発していた言語モデルであるPLaMo-13B[^4]もあるのですが、このモデルとの比較実験の結果が見受けられませんでした。どの程度性能が向上しているのかどうか確認してみたいところです。加えて、表中のGPT-4はGPT-4oを指しているのかどうかに関する言及も見つけることができませんでいた。2024年8月現在、最新手法といえば、Gemini-1.5-Proをはじめとして、GPT-4oやClaude 3.5 Sonetなどが挙げられる[^5]と思いますが、どの程度の性能差なのか純粋に気になります。
+[^4]: [PLaMo-13Bを公開しました](https://tech.preferred.jp/ja/blog/llm-plamo/)
+[^5]: [LMSYS Chatbot Arena Leaderboard](https://chat.lmsys.org/?leaderboard)
 
 ## 作成したデモ用アプリについて
 リンクを踏んでいただきますと、以下のようなアプリが表示されます。アプリの開発自体は、PythonのStreamlitというライブラリを使用しています。
