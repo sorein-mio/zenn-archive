@@ -29,9 +29,12 @@ PFNのブログにて公開されている実験を簡易的に紹介いたし�
 
 このように、PLaMo-100B-Instruct（事後学習済みのPLaMo-100B）は全体的にGPT-4モデルを上回る性能を示しています。ただし、MR (Mathematical Reasoning) カテゴリのデータに対しては、GPT-4モデルを大きく下回る性能となってしまっているようです。
 
-また、過去にPFNが開発していた言語モデルであるPLaMo-13B[^3]もあるのですが、このモデルとの比較実験の結果が見受けられませんでした。どの程度性能が向上しているのかどうか確認してみたいところです。加えて、表中のGPT-4はGPT-4oを指しているのかどうかに関する言及も見つけることができませんでいた。2024年8月現在、最新手法といえば、Gemini-1.5-Proをはじめとして、GPT-4oやClaude 3.5 Sonetなどが挙げられる[^4]と思いますが、どの程度の性能差なのか純粋に気になります。
-[^3]: [PLaMo-13Bを公開しました](https://tech.preferred.jp/ja/blog/llm-plamo/)
-[^4]: [LMSYS Chatbot Arena Leaderboard](https://chat.lmsys.org/?leaderboard)
+2024年10月15日追記：数学推論タスクの精度向上に関する検討がなされているようです[^3]。直接的にPLaMo-100Bの精度向上のための取り組みではないようですが、今後の性能向上に期待が持てる結果となっています。
+[^3]: [LLMにおける合成データセットによる数学推論タスクの精度向上の検討](https://tech.preferred.jp/ja/blog/llm-synthetic-dataset-for-math/)
+
+また、過去にPFNが開発していた言語モデルであるPLaMo-13B[^4]もあるのですが、このモデルとの比較実験の結果が見受けられませんでした。どの程度性能が向上しているのかどうか確認してみたいところです。加えて、表中のGPT-4はGPT-4oを指しているのかどうかに関する言及も見つけることができませんでいた。2024年8月現在、最新手法といえば、Gemini-1.5-Proをはじめとして、GPT-4oやClaude 3.5 Sonetなどが挙げられる[^5]と思いますが、どの程度の性能差なのか純粋に気になります。
+[^4]: [PLaMo-13Bを公開しました](https://tech.preferred.jp/ja/blog/llm-plamo/)
+[^5]: [LMSYS Chatbot Arena Leaderboard](https://chat.lmsys.org/?leaderboard)
 
 ## 作成したデモ用アプリについて
 リンクを踏んでいただきますと、以下のようなアプリが表示されます。アプリの開発自体は、PythonのStreamlitというライブラリを使用しています。
