@@ -1,8 +1,11 @@
 # zenn-archive
-This repository, "zenn-archive", is used to manage and publish articles on [Zenn](https://zenn.dev/) using [Zenn CLI](https://github.com/zenn-dev/zenn-editor) and GitHub. Primarily, it's a place to share code I've created and record what I've learned. This serves as a personal archive that others can also learn from. They are then synced with Zenn for publication. Click [here](https://zenn.dev/naoki0103) for details.
+![](https://github.com/C-Naoki/zenn-archive/actions/workflows/publish.yml/badge.svg)
+
+This repository is used to manage and publish articles on [Zenn](https://zenn.dev/) using [Zenn CLI](https://github.com/zenn-dev/zenn-editor) and GitHub. Primarily, it's a place to share code I've created and record what I've learned. This serves as a personal archive that others can also learn from. They are then synced with Zenn for publication. Click [here](https://zenn.dev/naoki0103) for details.
 
 ## Directory Structure
 
+- `.github/workflows/`: It contains GitHub Actions workflows.
 - `articles/`: It contains Zenn articles written in Markdown format.
 - `books/`: It contains Zenn books. The structure should follow the Zenn book guidelines.
 - `images/`: It contains images used in articles and books.
