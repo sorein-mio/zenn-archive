@@ -1,7 +1,7 @@
 # zenn-archive
 ![](https://github.com/C-Naoki/zenn-archive/actions/workflows/publish.yml/badge.svg)
 
-This repository is used to manage and publish articles on [Zenn](https://zenn.dev/) and [Qiita](https://qiita.com/). Primarily, it's a place to share the code I've created and record what I've learned. This serves as a personal archive from which others can also learn. You can find my pages on Zenn [here](https://zenn.dev/naoki0103) and on Qiita [here](https://qiita.com/C-Naoki), respectively.
+This repository is used to manage and publish articles on [Zenn](https://zenn.dev/) and [Qiita](https://qiita.com/). Primarily, it's a place to share the code I've created and record what I've learned. This serves as a personal archive from which others can also learn. You can find my pages on Zenn [here](https://zenn.dev/naoki0103) and on Qiita [here](https://qiita.com/C-Naoki), respectively. In addition, I use this [zenn-qiita-sync](https://github.com/C-Naoki/zenn-qiita-sync) to synchronize Qiita articles with Zenn articles.
 
 ## Directory Structure
 
