@@ -1,5 +1,5 @@
 ---
-title: "Zenn vs Qiita論争に終止符を打てたらいいな..."
+title: "Zenn vs Qiitaを終わらせに来た"
 emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["zenn", "qiita", "github", "githubactions"]
