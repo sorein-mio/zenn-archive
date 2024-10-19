@@ -94,7 +94,7 @@ jobs:
 https://zenn.dev/zenn/articles/zenn-cli-guide
 
 ### 1. Zenn CLIをインストールする
-以下の記事で説明されている手順に従って、Zenn CLIをインストールしてください。但し、Node.jsを使用することが前提となります。Node.jsのインストールについては、どのようなものでも良いですが、個人的にはvoltaをお勧めします。
+以下の記事で説明されている手順に従って、Zenn CLIをインストールしてください。但し、Node.jsを使用することが前提となります。Node.jsのインストールについては、どのようなものでも良いですが、個人的には[volta](https://volta.sh/)をお勧めします。
 
 https://zenn.dev/zenn/articles/install-zenn-cli
 
