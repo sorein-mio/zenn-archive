@@ -1,16 +1,15 @@
 ---
 title: Zenn vs Qiitaを終わらせに来た
-tags:
-  - Qiita
-  - GitHub
-  - GitHubActions
-  - Zenn
 private: false
+tags:
+  - zenn
+  - qiita
+  - github
+  - githubactions
 updated_at: '2024-10-15T16:35:16+09:00'
 id: 5c5609b82a67335bf3be
 organization_url_name: null
 slide: false
-ignorePublish: false
 ---
 ## はじめに
 自分自身のアウトプットの場の代表格として、Zenn・Qiitaが挙げられます。せっかく、記事を執筆したのに１つのプラットフォームでしか記事が共有されないのは、少しばかりもったいないですよね。巷では、どちらかのプラットフォームに記事を移す、であったり、どちらのプラットフォームの方が優れているのか？なんていう記事が投稿されていたりします。それなら一層のこと、どちらにも投稿すれば全て解決するのでは？なんて思ったのがこのツールの開発のきっかけでした。この記事では、ZennをGitHubで管理する要領で、Qiitaにも記事を投稿可能にするためのWorkflowについて説明します。GitHub Actionsで自動化できるようになっているので、一度実装さえしてしまえば、作業量を増やすことなく２種類のプラットフォームに記事を投稿可能です。また、GitHub Actionsに関する知識がほとんどなくても、実装できるように工夫をしていますので、ぜひお試しください。
@@ -101,7 +100,7 @@ jobs:
 https://zenn.dev/zenn/articles/zenn-cli-guide
 
 ### 1. Zenn CLIをインストールする
-以下の記事で説明されている手順に従って、Zenn CLIをインストールしてください。但し、Node.jsを使用することが前提となります。Node.jsのインストールについては、どのようなものでも良いですが、個人的にはvoltaをお勧めします。
+以下の記事で説明されている手順に従って、Zenn CLIをインストールしてください。但し、Node.jsを使用することが前提となります。Node.jsのインストールについては、どのようなものでも良いですが、個人的には[volta](https://volta.sh/)をお勧めします。
 
 https://zenn.dev/zenn/articles/install-zenn-cli
 
