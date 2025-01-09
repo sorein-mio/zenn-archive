@@ -44,3 +44,7 @@ published: true
 ## デザイン
 ### [コストや時間の削減表現のテンプレート配布します！](https://raku-pre.com/cost_reduction/)
 - サイト：[ラクプレ](https://raku-pre.com/)
+
+## 数学
+### [ベクトル・行列の微分チートシート](https://tekrog.com/cheatsheet-differentiation-of-vectors-and-matrices)
+- サイト：[TekRog](https://tekrog.com)
