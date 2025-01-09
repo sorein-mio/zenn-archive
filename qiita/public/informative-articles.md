@@ -1,17 +1,16 @@
 ---
 title: 参考になった記事 覚書
-tags:
-  - GitHub
-  - tech
-  - 機械学習
-  - 論文
-  - ソフトウェア開発
 private: false
+tags:
+  - 論文
+  - GitHub
+  - 機械学習
+  - ソフトウェア開発
+  - Tech
 updated_at: '2024-10-11T10:57:19+09:00'
 id: 71fe7fb602a388c4df6c
 organization_url_name: null
 slide: false
-ignorePublish: false
 ---
 
 ## はじめに
@@ -52,3 +51,7 @@ ignorePublish: false
 ## デザイン
 ### [コストや時間の削減表現のテンプレート配布します！](https://raku-pre.com/cost_reduction/)
 - サイト：[ラクプレ](https://raku-pre.com/)
+
+## 数学
+### [ベクトル・行列の微分チートシート](https://tekrog.com/cheatsheet-differentiation-of-vectors-and-matrices)
+- サイト：[TekRog](https://tekrog.com)
