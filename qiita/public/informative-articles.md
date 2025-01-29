@@ -1,16 +1,17 @@
 ---
 title: 参考になった記事 覚書
-private: false
 tags:
-  - 論文
   - GitHub
+  - tech
   - 機械学習
+  - 論文
   - ソフトウェア開発
-  - Tech
-updated_at: '2025-01-29T12:49:50+09:00'
+private: false
+updated_at: '2025-01-29T12:57:33+09:00'
 id: 71fe7fb602a388c4df6c
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 
 ## はじめに
