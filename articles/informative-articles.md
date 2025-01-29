@@ -7,7 +7,7 @@ published: true
 ---
 
 ## はじめに
-今まで読んだ記事の中で、特に参考になったものをまとめておきます。主に、自分のためのメモとして作成しています。
+今まで読んだ記事の中で、特に参考になったもの・保存しておきたいものをまとめておきます。主に、自分のためのメモとして作成しています。
 
 ## 論文執筆
 ### [アカデミックヤクザにキレられないためのLaTeX論文執筆メソッド](https://qiita.com/suigin/items/10960e516f2d44f6b6de)
@@ -40,6 +40,9 @@ published: true
 ### [変更があるときだけコミット [GitHub Actions]](https://zenn.dev/snowcait/articles/903d86d668fcb7)
 - 執筆者：[雪猫](https://zenn.dev/snowcait)さん
 - サイト：Zenn
+### [pyenvで最新バージョンがインストールできない](https://qiita.com/takoz/items/fa953620dee68cb87575)
+- 執筆者：[takoz](https://qiita.com/takoz)さん
+- サイト：Qiita
 
 ## デザイン
 ### [コストや時間の削減表現のテンプレート配布します！](https://raku-pre.com/cost_reduction/)
