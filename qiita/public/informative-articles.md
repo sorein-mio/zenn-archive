@@ -1,21 +1,20 @@
 ---
 title: 参考になった記事 覚書
-tags:
-  - GitHub
-  - tech
-  - 機械学習
-  - 論文
-  - ソフトウェア開発
 private: false
+tags:
+  - 論文
+  - GitHub
+  - 機械学習
+  - ソフトウェア開発
+  - Tech
 updated_at: '2025-01-09T12:29:06+09:00'
 id: 71fe7fb602a388c4df6c
 organization_url_name: null
 slide: false
-ignorePublish: false
 ---
 
 ## はじめに
-今まで読んだ記事の中で、特に参考になったものをまとめておきます。主に、自分のためのメモとして作成しています。
+今まで読んだ記事の中で、特に参考になったもの・保存しておきたいものをまとめておきます。主に、自分のためのメモとして作成しています。
 
 ## 論文執筆
 ### [アカデミックヤクザにキレられないためのLaTeX論文執筆メソッド](https://qiita.com/suigin/items/10960e516f2d44f6b6de)
@@ -48,6 +47,9 @@ ignorePublish: false
 ### [変更があるときだけコミット [GitHub Actions]](https://zenn.dev/snowcait/articles/903d86d668fcb7)
 - 執筆者：[雪猫](https://zenn.dev/snowcait)さん
 - サイト：Zenn
+### [pyenvで最新バージョンがインストールできない](https://qiita.com/takoz/items/fa953620dee68cb87575)
+- 執筆者：[takoz](https://qiita.com/takoz)さん
+- サイト：Qiita
 
 ## デザイン
 ### [コストや時間の削減表現のテンプレート配布します！](https://raku-pre.com/cost_reduction/)
