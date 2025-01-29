@@ -55,5 +55,8 @@ published: true
 ## 付録（自筆記事）
 最後に、手前味噌にはなりますが、宣伝を兼ねて自分の記事も紹介させていただきます
 ### Zenn vs Qiitaを終わらせに来た [[Zenn]](https://zenn.dev/naoki0103/articles/zenn-qiita-sync-workflow) [[Qiita]](https://qiita.com/C-naoki/items/5c5609b82a67335bf3be)
+- GitHub Actionsを用いて、ZennとQiitaの記事を同期させる方法を紹介しています。
+- 一度設定をしてしまえば、その後特に手を煩わすことなく、同時にZennとQiitaに記事を自動で投稿することができます。
 
 ### 画像結合のためのアルゴリズムを考えてみた [[Zenn]](https://zenn.dev/naoki0103/articles/image-stitcher-application) [[Qiita]](https://qiita.com/C-naoki/items/bf973b041709ad0cd635)
+- 画像結合のためのシンプルなアルゴリズムを考え、Pythonで実装してみました。
