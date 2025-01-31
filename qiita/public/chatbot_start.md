@@ -1,15 +1,16 @@
 ---
-title: "【OpenAI API × TypeScript】インタラクティブなチャットボットの開発"
+title: 【OpenAI API × TypeScript】インタラクティブなチャットボットの開発
 tags:
   - TypeScript
   - React
-  - OpenAI
   - 個人開発
+  - OpenAI
 private: false
-updated_at: null
-id: null
+updated_at: '2025-01-31T18:36:24+09:00'
+id: ff145b1b8e310ee0ee66
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 
 
