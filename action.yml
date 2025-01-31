@@ -1,0 +1,94 @@
+name: Publish Blogs
+description: When pushing Zenn articles to GitHub, convert them to Qiita format and publish them.
+author: Naoki Chihara
+
+inputs:
+  root:
+    required: false
+    default: "./qiita"
+    description: "Root directory path"
+  qiita-token:
+    required: true
+    description: 'Qiita API token'
+  convert-commit-message:
+    required: false
+    default: "Convert Zenn articles to Qiita format"
+    description: "Commit message for converting Zenn articles to Qiita format"
+  qiitacli-commit-message:
+    required: false
+    default: "Updated by qiita-cli"
+    description: "Qiita commit message"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Get changed markdown files
+      id: files
+      run: |
+        git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep "^articles/.*\.md$" > $GITHUB_WORKSPACE/changed_files.txt
+        echo "📋 Changed markdown files:"
+        cat $GITHUB_WORKSPACE/changed_files.txt
+      continue-on-error: true
+      shell: bash
+
+    - name: Install qiita-cli
+      run: |
+        npm install @qiita/qiita-cli --save-dev
+      shell: bash
+
+    - name: Convert Zenn articles to Qiita format
+      run: |
+        for file in $(cat $GITHUB_WORKSPACE/changed_files.txt); do
+          filename=$(basename "$file" .md)
+          echo "🚀 Convert $file to Qiita format"
+          if [[ "$file" != articles/* ]]; then
+            echo "⚠️ invalid file path: $file"
+            if [[ -f "qiita/public/$filename.md" ]]; then
+              echo "delete qiita/public/$filename.md cuz it's not included in articles/"
+              rm "qiita/public/$filename.md"
+            fi
+            continue
+          fi
+
+          if grep -q "published: true" "$file"; then
+            if [[ ! -f "qiita/public/$filename.md" ]]; then
+              echo "🌱 Create new Qiita article"
+              cd ./qiita
+              npx qiita new "$filename"
+              cd ../
+            fi
+            echo "🚚 Convert $file to qiita/public/$filename.md"
+            node ${{ github.action_path }}/dist/index.js "$file" "./qiita/public/$filename.md"
+          fi
+
+        done
+      shell: bash
+      if: steps.files.outcome == 'success'
+
+    - name: Commit converted Qiita articles
+      run: |
+        rm $GITHUB_WORKSPACE/changed_files.txt
+        rm package-lock.json package.json
+        git config --local user.name ${{ github.actor }}
+        git config --local user.email ${{ github.actor }}@users.noreply.github.com
+        git add qiita/public/*.md
+        git commit -m "${{ inputs.convert-commit-message }}"
+        git push
+      shell: bash
+      if: steps.files.outcome == 'success'
+
+    - name: Publish Qiita articles
+      uses: increments/qiita-cli/actions/publish@v1
+      with:
+        qiita-token: ${{ inputs.qiita-token }}
+        root: ${{ inputs.root }}
+        commit-message: ${{ inputs.qiitacli-commit-message }}
+
+branding:
+  icon: refresh-cw
+  color: green
