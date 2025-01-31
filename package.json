@@ -1,15 +1,17 @@
 {
-  "name": "zenn-archive",
+  "name": "zenn-to-qiita",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "zenn-cli": "^0.1.158"
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
   }
 }

@@ -40,8 +40,13 @@ runs:
         fi
       shell: bash
 
-    - name: Install qiita-cli
+    - name: Install dependencies and build
       run: |
+        cd ${{ github.action_path }}
+        npm install
+        npm install typescript @types/node --save-dev
+        npm run build
+        cd $GITHUB_WORKSPACE
         npm install @qiita/qiita-cli --save-dev
       shell: bash
 
@@ -67,9 +72,8 @@ runs:
               cd ../
             fi
             echo "🚚 Convert $file to qiita/public/$filename.md"
-            node ${{ github.action_path }}/dist/index.js "$file" "./qiita/public/$filename.md"
+            node ${{ github.action_path }}/dist/index.js "$GITHUB_WORKSPACE/$file" "$GITHUB_WORKSPACE/qiita/public/$filename.md"
           fi
-
         done
       shell: bash
       if: steps.files.outcome == 'success'
