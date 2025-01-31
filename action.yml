@@ -9,7 +9,7 @@ inputs:
     description: "Root directory path"
   qiita-token:
     required: true
-    description: 'Qiita API token'
+    description: "Qiita API token"
   convert-commit-message:
     required: false
     default: "Convert Zenn articles to Qiita format"
@@ -25,15 +25,19 @@ runs:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20'
+        node-version: "20"
 
     - name: Get changed markdown files
       id: files
       run: |
-        git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep "^articles/.*\.md$" > $GITHUB_WORKSPACE/changed_files.txt
+        mkdir -p qiita/public
+        git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep "^articles/.*\.md$" > $GITHUB_WORKSPACE/changed_files.txt || true
         echo "📋 Changed markdown files:"
-        cat $GITHUB_WORKSPACE/changed_files.txt
-      continue-on-error: true
+        if [ -s "$GITHUB_WORKSPACE/changed_files.txt" ]; then
+          cat $GITHUB_WORKSPACE/changed_files.txt
+        else
+          echo "No markdown files changed"
+        fi
       shell: bash
 
     - name: Install qiita-cli
@@ -72,13 +76,17 @@ runs:
 
     - name: Commit converted Qiita articles
       run: |
-        rm $GITHUB_WORKSPACE/changed_files.txt
-        rm package-lock.json package.json
+        rm -f $GITHUB_WORKSPACE/changed_files.txt
+        rm -f package-lock.json package.json
         git config --local user.name ${{ github.actor }}
         git config --local user.email ${{ github.actor }}@users.noreply.github.com
-        git add qiita/public/*.md
-        git commit -m "${{ inputs.convert-commit-message }}"
-        git push
+        if git status --porcelain | grep -q "qiita/public/"; then
+          git add qiita/public/*.md
+          git commit -m "${{ inputs.convert-commit-message }}"
+          git push
+        else
+          echo "No changes to commit"
+        fi
       shell: bash
       if: steps.files.outcome == 'success'
 
