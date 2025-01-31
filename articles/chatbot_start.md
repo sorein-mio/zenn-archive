@@ -18,12 +18,12 @@ TypeScriptとReactを使用して構築され、マークダウン形式での�
 ## デモ画面
 
 ### チャットインターフェース
-![チャットボットのメイン画面](/imags/chatbot_start/chat-screen.png)
+![チャットボットのメイン画面](/images/chatbot_start/chat-screen.png)
 
 シンプルで使いやすいインターフェースを心がけました。マークダウン形式での表示やコードブロックにも対応し、プログラミング関連の会話も快適に行えます。
 
 ### モデル選択機能
-![モデル選択画面](/imags/chatbot_start/model-selection.png)
+![モデル選択画面](/images/chatbot_start/model-selection.png)
 
 用途や予算に応じて最適なモデルを選択できます。GPT-4やGPT-3.5-turboなど、複数のモデルに対応しています。
 
