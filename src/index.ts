@@ -48,21 +48,17 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
     updated_at: updated_at,
   };
 
-  // YAMLとしてフロントマターを生成
-  const frontMatterObj = {
-    title: qiitaFrontMatter.title,
-    tags: qiitaFrontMatter.tags,
-    private: qiitaFrontMatter.private,
-    slide: qiitaFrontMatter.slide,
-    id: qiitaFrontMatter.id,
-    organization_url_name: qiitaFrontMatter.organization_url_name,
-    updated_at: qiitaFrontMatter.updated_at,
-  };
-
-  // 新しいフロントマターを作成
-  const yamlStr = yaml.stringify(frontMatterObj);
+  // 新しいフロントマターを作成（YAMLを手動で構築）
   const newFrontMatter = `---
-${yamlStr}---
+title: "${qiitaFrontMatter.title}"
+tags:
+${qiitaFrontMatter.tags.map(tag => `  - name: "${tag.name}"`).join('\n')}
+private: false
+slide: false
+id: ""
+organization_url_name: ""
+updated_at: "${qiitaFrontMatter.updated_at}"
+---
 
 <!-- Converted from Zenn format -->`;
 
