@@ -1,0 +1,135 @@
+---
+title: "WordPressの記事を自動でXに投稿するプラグインを作ってみた"
+emoji: "🐦"
+type: "tech" # tech: 技術記事 / idea: アイデア
+topics: ["wordpress", "php", "twitter", "plugin", "個人開発"]
+published: true
+---
+
+# WordPressの記事をXに自動投稿するプラグインを開発しました
+
+## はじめに
+
+ブログを書いた後、いちいちXに投稿するのが面倒...そんな経験はありませんか？
+私も同じ悩みを持っていたので、WordPressの記事を自動的にX（旧Twitter）に投稿するプラグインを開発しました。
+
+https://github.com/sorein-mio/auto-post-to-x
+
+## 主な機能
+
+- 新規投稿時の自動投稿
+- 記事更新時の自動投稿（オプション）
+- カスタマイズ可能な投稿テンプレート
+- カスタムハッシュタグ機能
+  - 投稿ごとの個別設定
+  - デフォルトハッシュタグの設定
+  - カテゴリーをハッシュタグとして使用可能
+  - 最大ハッシュタグ数の制限設定
+- 管理画面からの簡単設定
+- テスト投稿機能
+
+## 技術的な詳細
+
+### 使用技術
+- PHP 7.0以上
+- WordPress 5.0以上
+- X API (Twitter API v2)
+- cURL PHP拡張
+
+### プラグインの構成
+``` plaintext
+auto-post-to-x/
+├── includes/
+│ ├── admin/
+│ │ └── settings.php # 管理画面の設定
+│ ├── api/
+│ │ └── x-api.php # X APIとの通信処理
+│ └── core/
+│ └── post-handler.php # 投稿処理のメイン機能
+├── wp-to-x-auto-post.php # プラグインのメインファイル
+└── README.md
+```
+
+### 主要な実装ポイント
+
+1. **フック処理**
+``` php
+// 新規投稿時のフック
+add_action('publish_post', 'post_to_x');
+// 更新時のフック
+add_action('post_updated', 'update_post_to_x', 10, 3);
+```
+
+2. **投稿テンプレート処理**
+
+``` php
+function format_post_message($post) {
+  $template = get_option('x_post_template');
+  $message = str_replace(
+    ['{title}', '{url}'],
+    [$post->post_title, get_permalink($post)],
+    $template
+  );
+  return $message;
+}
+```
+
+3. **ハッシュタグ処理**
+   
+``` php
+function get_post_hashtags($post_id) {
+  $custom_tags = get_post_meta($post_id, 'x_hashtags', true);
+  $category_tags = get_category_hashtags($post_id);
+  return array_merge(
+    explode(',', $custom_tags),
+    $category_tags
+  );
+}
+```
+
+## 開発で苦労した点
+
+### 1. API制限への対応
+X APIには1ヶ月あたり1,500ツイートという制限があります。これに対応するため、以下の機能を実装しました：
+
+- 更新投稿の間隔制御
+- 投稿失敗時のエラーハンドリング
+- API制限のカウント機能
+
+### 2. 文字数制限への対応
+Xの投稿文字数制限（280文字）に対応するため：
+
+- テンプレート文字数のバリデーション
+- URLの自動短縮
+- ハッシュタグの文字数考慮
+
+### 3. 投稿の重複防止
+短時間での同一内容の投稿を防ぐため：
+
+- 前回の投稿時刻の記録
+- 更新間隔のチェック
+- 投稿内容のハッシュ値比較
+
+## 今後の展望
+
+1. **機能追加予定**
+   - カスタム投稿タイプのサポート
+   - 画像投稿機能
+   - 投稿スケジュール機能
+   - より柔軟な投稿テンプレート
+
+2. **改善予定**
+   - パフォーマンスの最適化
+   - エラーハンドリングの強化
+   - 多言語対応
+
+## おわりに
+
+このプラグインはGitHubで公開しています：
+https://github.com/sorein-mio/auto-post-to-x
+
+ぜひ使ってみてください！また、改善点や機能追加の要望があればGitHubのIssueやプルリクエストをお待ちしています。
+
+## 参考資料
+- [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/)
+- [X API Documentation](https://developer.twitter.com/en/docs)
