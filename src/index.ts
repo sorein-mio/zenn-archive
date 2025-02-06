@@ -57,7 +57,7 @@ private: false
 slide: false
 id: ""
 organization_url_name: ""
-updated_at: "${qiitaFrontMatter.updated_at}"
+updated_at: '${qiitaFrontMatter.updated_at}'
 ---
 
 <!-- Converted from Zenn format -->`;
