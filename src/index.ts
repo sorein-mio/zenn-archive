@@ -47,7 +47,7 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
   const newFrontMatter = `---
 title: "${qiitaFrontMatter.title}"
 tags:
-${qiitaFrontMatter.tags.map(tag => `  - name: ${tag.name}`).join('\n')}
+${qiitaFrontMatter.tags.map(tag => `  - name: "${tag.name}"`).join('\n')}
 private: ${qiitaFrontMatter.private}
 slide: ${qiitaFrontMatter.slide}
 id: "${qiitaFrontMatter.id}"
