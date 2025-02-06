@@ -98,7 +98,7 @@ runs:
       run: |
         RETRIES=0
         MAX_RETRIES=3
-        until qiita publish --all --root "${{ inputs.root }}" --commit-message "${{ inputs.qiitacli-commit-message }}"; do
+        until npx qiita publish --all --root "${{ inputs.root }}" --commit-message "${{ inputs.qiitacli-commit-message }}"; do
           RETRIES=$((RETRIES+1))
           if [ $RETRIES -ge $MAX_RETRIES ]; then
             echo "Max retries reached. Exiting."
