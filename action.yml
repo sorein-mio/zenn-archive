@@ -107,6 +107,7 @@ runs:
           echo "Publish failed. Retrying in 10 seconds... ($RETRIES/$MAX_RETRIES)"
           sleep 10
         done
+      shell: bash
       env:
         QIITA_TOKEN: ${{ inputs.qiita-token }}
 
