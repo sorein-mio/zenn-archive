@@ -31,11 +31,11 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
   }
 
   const frontMatterYaml = frontMatterMatch[1];
-  const zennFrontMatter = parseYaml(frontMatterYaml) as ZennFrontMatter;
+  const zennFrontMatter = yaml.parse(frontMatterYaml) as ZennFrontMatter;
 
   // 現在時刻をISO 8601形式で生成（ミリ秒を除去）
   const now = new Date();
-  const updated_at = now.toISOString().split('.')[0] + 'Z';
+  const updated_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z');
 
   // Qiita形式のフロントマターに変換
   const qiitaFrontMatter: QiitaFrontMatter = {
@@ -43,8 +43,8 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
     tags: (zennFrontMatter.topics || []).map(topic => ({ name: topic })),
     private: false,
     slide: false,
-    id: "example_id",
-    organization_url_name: "example_org",
+    id: "",
+    organization_url_name: "",
     updated_at: updated_at,
   };
 
@@ -60,9 +60,9 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
   };
 
   // 新しいフロントマターを作成
+  const yamlStr = yaml.stringify(frontMatterObj);
   const newFrontMatter = `---
-${yaml.stringify(frontMatterObj).trim()}
----
+${yamlStr}---
 
 <!-- Converted from Zenn format -->`;
 
@@ -73,30 +73,6 @@ ${yaml.stringify(frontMatterObj).trim()}
   const newContent = `${newFrontMatter}\n${body}`;
   fs.writeFileSync(outputPath, newContent);
   console.log('Conversion completed successfully');
-};
-
-const parseYaml = (yaml: string): any => {
-  const result: any = {};
-  const lines = yaml.split('\n');
-  
-  for (const line of lines) {
-    const match = line.match(/^([^:]+):\s*(.+)$/);
-    if (match) {
-      const [_, key, value] = match;
-      if (value.startsWith('[') && value.endsWith(']')) {
-        // 配列の場合、カンマで分割して各要素をトリム
-        result[key] = value
-          .slice(1, -1)
-          .split(',')
-          .map(s => s.trim().replace(/["']/g, ''));
-      } else {
-        // 文字列の場合、クォートを削除してトリム
-        result[key] = value.replace(/["']/g, '').trim();
-      }
-    }
-  }
-  
-  return result;
 };
 
 const [inputPath, outputPath] = process.argv.slice(2);
