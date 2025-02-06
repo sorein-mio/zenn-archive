@@ -42,7 +42,7 @@ WordPressで使用するためにはプラグインディレクトリ内に下�
 ``` plaintext
 auto-post-to-x/
 ├──── includes/
-│ └── TwitterAPIExchange.php # Twitter-API-PHP
+│ └── TwitterAPIExchange.php # Twitter-API-PHPのライブラリ
 ├── wp-to-x-auto-post.php # プラグインのメインファイル
 └── README.md
 ```
