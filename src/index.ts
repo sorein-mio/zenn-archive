@@ -53,10 +53,12 @@ slide: false
 id: ""
 organization_url_name: ""
 updated_at: "${qiitaFrontMatter.updated_at}"
----`;
+---
 
-  // 元の本文を取得
-  const body = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+<!-- Converted from Zenn format -->`;
+
+  // 元の本文を取得（先頭の空行を削除）
+  const body = content.replace(/^---\n[\s\S]*?\n---\n\s*/, '');
 
   // 新しい内容を書き込み
   const newContent = `${newFrontMatter}\n${body}`;
@@ -73,9 +75,14 @@ const parseYaml = (yaml: string): any => {
     if (match) {
       const [_, key, value] = match;
       if (value.startsWith('[') && value.endsWith(']')) {
-        result[key] = value.slice(1, -1).split(',').map(s => s.trim().replace(/"/g, ''));
+        // 配列の場合、カンマで分割して各要素をトリム
+        result[key] = value
+          .slice(1, -1)
+          .split(',')
+          .map(s => s.trim().replace(/["']/g, ''));
       } else {
-        result[key] = value.replace(/"/g, '').trim();
+        // 文字列の場合、クォートを削除してトリム
+        result[key] = value.replace(/["']/g, '').trim();
       }
     }
   }
