@@ -1,11 +1,19 @@
 ---
-title: "WordPressの記事を自動でXに投稿するプラグインを作ってみた"
-emoji: "🐦"
-type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["wordpress", "php", "twitter", "plugin", "個人開発"]
-published: true
+title: WordPressの記事を自動でXに投稿するプラグインを作ってみた
+tags:
+  - name: wordpress
+  - name: php
+  - name: twitter
+  - name: plugin
+  - name: 個人開発
+private: false
+slide: false
+id: example_id
+organization_url_name: example_org
+updated_at: 2025-02-06T08:42:44.842Z
 ---
 
+<!-- Converted from Zenn format -->
 # WordPressの記事をXに自動投稿するプラグインを開発しました
 
 ## はじめに
@@ -37,15 +45,12 @@ https://github.com/sorein-mio/auto-post-to-x
 - cURL PHP拡張
 
 ### プラグインの構成
+WordPressで使用するためにはプラグインディレクトリ内に下記のReadmeを除いた構成でアップロードしてください
+
 ``` plaintext
 auto-post-to-x/
-├── includes/
-│ ├── admin/
-│ │ └── settings.php # 管理画面の設定
-│ ├── api/
-│ │ └── x-api.php # X APIとの通信処理
-│ └── core/
-│ └── post-handler.php # 投稿処理のメイン機能
+├──── includes/
+│ └── TwitterAPIExchange.php # Twitter-API-PHP
 ├── wp-to-x-auto-post.php # プラグインのメインファイル
 └── README.md
 ```
