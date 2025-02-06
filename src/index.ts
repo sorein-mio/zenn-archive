@@ -14,8 +14,9 @@ interface QiitaFrontMatter {
   tags: { name: string }[];
   private: boolean;
   slide: boolean;
-  id?: string;
-  organization_url_name?: string;
+  id: string;
+  organization_url_name: string;
+  updated_at: string;
 }
 
 const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
@@ -37,16 +38,21 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
     tags: (zennFrontMatter.topics || []).map(topic => ({ name: topic })),
     private: false,
     slide: false,
-    organization_url_name: '',
+    id: "",
+    organization_url_name: "",
+    updated_at: new Date().toISOString(),
   };
 
   // 新しいフロントマターを作成
   const newFrontMatter = `---
 title: "${qiitaFrontMatter.title}"
-tags: ${JSON.stringify(qiitaFrontMatter.tags)}
+tags:
+${qiitaFrontMatter.tags.map(tag => `  - name: ${tag.name}`).join('\n')}
 private: ${qiitaFrontMatter.private}
 slide: ${qiitaFrontMatter.slide}
+id: "${qiitaFrontMatter.id}"
 organization_url_name: "${qiitaFrontMatter.organization_url_name}"
+updated_at: "${qiitaFrontMatter.updated_at}"
 ---`;
 
   // 元の本文を取得

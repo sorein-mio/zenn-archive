@@ -50,15 +50,20 @@ const convertToQiitaFormat = (inputPath, outputPath) => {
         tags: (zennFrontMatter.topics || []).map(topic => ({ name: topic })),
         private: false,
         slide: false,
-        organization_url_name: '',
+        id: "",
+        organization_url_name: "",
+        updated_at: new Date().toISOString(),
     };
     // 新しいフロントマターを作成
     const newFrontMatter = `---
 title: "${qiitaFrontMatter.title}"
-tags: ${JSON.stringify(qiitaFrontMatter.tags)}
+tags:
+${qiitaFrontMatter.tags.map(tag => `  - name: ${tag.name}`).join('\n')}
 private: ${qiitaFrontMatter.private}
 slide: ${qiitaFrontMatter.slide}
+id: "${qiitaFrontMatter.id}"
 organization_url_name: "${qiitaFrontMatter.organization_url_name}"
+updated_at: "${qiitaFrontMatter.updated_at}"
 ---`;
     // 元の本文を取得
     const body = content.replace(/^---\n[\s\S]*?\n---\n/, '');
