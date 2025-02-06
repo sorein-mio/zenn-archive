@@ -1,19 +1,18 @@
 ---
-title: 【OpenAI API × TypeScript】インタラクティブなチャットボットの開発
+title: "【OpenAI API × TypeScript】インタラクティブなチャットボットの開発"
 tags:
-  - TypeScript
-  - React
-  - 個人開発
-  - OpenAI
+  - name: "typescript"
+  - name: "react"
+  - name: "openai"
+  - name: "個人開発"
 private: false
-updated_at: '2025-01-31T18:36:24+09:00'
-id: ff145b1b8e310ee0ee66
-organization_url_name: null
 slide: false
-ignorePublish: false
+id: ""
+organization_url_name: ""
+updated_at: "2025-02-06T10:24:39Z"
 ---
 
-
+<!-- Converted from Zenn format -->
 # OpenAI API × TypeScriptでインタラクティブなチャットボットを開発
 
 https://github.com/sorein-mio/chatbot
@@ -29,7 +28,8 @@ TypeScriptとReactを使用して構築され、マークダウン形式での�
 ### チャットインターフェース
 ![チャットボットのメイン画面](/images/chatbot_start/chat-screen.png)
 
-シンプルで使いやすいインターフェースを心がけました。マークダウン形式での表示やコードブロックにも対応し、プログラミング関連の会話も快適に行えます。
+シンプルで使いやすいインターフェースを心がけました。
+マークダウン形式での表示やコードブロックにも対応し、プログラミング関連の会話も快適に行えます。
 
 ### モデル選択機能
 ![モデル選択画面](/images/chatbot_start/model-selection.png)
