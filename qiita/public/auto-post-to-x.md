@@ -10,7 +10,7 @@ private: false
 slide: false
 id: example_id
 organization_url_name: example_org
-updated_at: 2025-02-06T08:42:44.842Z
+updated_at: 2025-02-06T09:14:04Z
 ---
 
 <!-- Converted from Zenn format -->
@@ -113,6 +113,7 @@ Xの投稿文字数制限（280文字）に対応するため：
 
 - 前回の投稿時刻の記録
 - 更新間隔のチェック
+  - 更新間隔は設定変更可能です  
 - 投稿内容のハッシュ値比較
 
 ## 今後の展望
