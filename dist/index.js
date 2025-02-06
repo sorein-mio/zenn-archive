@@ -34,6 +34,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
+const yaml = __importStar(require("yaml"));
 const convertToQiitaFormat = (inputPath, outputPath) => {
     console.log(`Converting file from ${inputPath} to ${outputPath}`);
     const content = fs.readFileSync(inputPath, 'utf8');
@@ -50,20 +51,23 @@ const convertToQiitaFormat = (inputPath, outputPath) => {
         tags: (zennFrontMatter.topics || []).map(topic => ({ name: topic })),
         private: false,
         slide: false,
-        id: "",
-        organization_url_name: "",
+        id: "example_id",
+        organization_url_name: "example_org",
         updated_at: new Date().toISOString(),
+    };
+    // YAMLとしてフロントマターを生成
+    const frontMatterObj = {
+        title: qiitaFrontMatter.title,
+        tags: qiitaFrontMatter.tags,
+        private: qiitaFrontMatter.private,
+        slide: qiitaFrontMatter.slide,
+        id: qiitaFrontMatter.id,
+        organization_url_name: qiitaFrontMatter.organization_url_name,
+        updated_at: qiitaFrontMatter.updated_at,
     };
     // 新しいフロントマターを作成
     const newFrontMatter = `---
-title: "${qiitaFrontMatter.title}"
-tags:
-${qiitaFrontMatter.tags.map(tag => `  - name: "${tag.name}"`).join('\n')}
-private: false
-slide: false
-id: ""
-organization_url_name: ""
-updated_at: "${qiitaFrontMatter.updated_at}"
+${yaml.stringify(frontMatterObj).trim()}
 ---
 
 <!-- Converted from Zenn format -->`;

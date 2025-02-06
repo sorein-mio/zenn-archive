@@ -13,5 +13,9 @@
   "dependencies": {
     "@types/node": "^20.0.0",
     "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/yaml": "^1.9.7",
+    "yaml": "^2.7.0"
   }
 }

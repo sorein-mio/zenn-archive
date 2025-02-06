@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as yaml from 'yaml';
 
 interface ZennFrontMatter {
   title: string;
@@ -38,21 +39,25 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
     tags: (zennFrontMatter.topics || []).map(topic => ({ name: topic })),
     private: false,
     slide: false,
-    id: "",
-    organization_url_name: "",
+    id: "example_id",
+    organization_url_name: "example_org",
     updated_at: new Date().toISOString(),
+  };
+
+  // YAMLとしてフロントマターを生成
+  const frontMatterObj = {
+    title: qiitaFrontMatter.title,
+    tags: qiitaFrontMatter.tags,
+    private: qiitaFrontMatter.private,
+    slide: qiitaFrontMatter.slide,
+    id: qiitaFrontMatter.id,
+    organization_url_name: qiitaFrontMatter.organization_url_name,
+    updated_at: qiitaFrontMatter.updated_at,
   };
 
   // 新しいフロントマターを作成
   const newFrontMatter = `---
-title: "${qiitaFrontMatter.title}"
-tags:
-${qiitaFrontMatter.tags.map(tag => `  - name: "${tag.name}"`).join('\n')}
-private: false
-slide: false
-id: ""
-organization_url_name: ""
-updated_at: "${qiitaFrontMatter.updated_at}"
+${yaml.stringify(frontMatterObj).trim()}
 ---
 
 <!-- Converted from Zenn format -->`;
