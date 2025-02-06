@@ -59,10 +59,10 @@ const convertToQiitaFormat = (inputPath, outputPath) => {
 title: "${qiitaFrontMatter.title}"
 tags:
 ${qiitaFrontMatter.tags.map(tag => `  - name: "${tag.name}"`).join('\n')}
-private: ${qiitaFrontMatter.private}
-slide: ${qiitaFrontMatter.slide}
-id: "${qiitaFrontMatter.id}"
-organization_url_name: "${qiitaFrontMatter.organization_url_name}"
+private: false
+slide: false
+id: ""
+organization_url_name: ""
 updated_at: "${qiitaFrontMatter.updated_at}"
 ---`;
     // 元の本文を取得
