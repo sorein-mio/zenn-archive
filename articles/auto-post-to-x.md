@@ -37,15 +37,12 @@ https://github.com/sorein-mio/auto-post-to-x
 - cURL PHP拡張
 
 ### プラグインの構成
+WordPressで使用するためにはプラグインディレクトリ内に下記のReadmeを除いた構成でアップロードしてください
+
 ``` plaintext
 auto-post-to-x/
-├── includes/
-│ ├── admin/
-│ │ └── settings.php # 管理画面の設定
-│ ├── api/
-│ │ └── x-api.php # X APIとの通信処理
-│ └── core/
-│ └── post-handler.php # 投稿処理のメイン機能
+├──── includes/
+│ └── TwitterAPIExchange.php # Twitter-API-PHP
 ├── wp-to-x-auto-post.php # プラグインのメインファイル
 └── README.md
 ```
