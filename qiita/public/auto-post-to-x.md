@@ -8,9 +8,9 @@ tags:
   - name: 個人開発
 private: false
 slide: false
-id: example_id
-organization_url_name: example_org
-updated_at: 2025-02-06T09:14:04Z
+id: ""
+organization_url_name: ""
+updated_at: 2025-02-06T09:27:49Z
 ---
 
 <!-- Converted from Zenn format -->
@@ -134,7 +134,8 @@ Xの投稿文字数制限（280文字）に対応するため：
 このプラグインはGitHubで公開しています：
 https://github.com/sorein-mio/auto-post-to-x
 
-ぜひ使ってみてください！また、改善点や機能追加の要望があればGitHubのIssueやプルリクエストをお待ちしています。
+ぜひ使ってみてください！
+また、改善点や機能追加の要望があればGitHubのIssueやプルリクエストをお待ちしています。
 
 ## 参考資料
 - [WordPress Plugin Handbook](https://developer.wordpress.org/plugins/)
