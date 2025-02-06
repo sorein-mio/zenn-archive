@@ -23,7 +23,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: "20"
 
@@ -95,11 +95,20 @@ runs:
       if: steps.files.outcome == 'success'
 
     - name: Publish Qiita articles
-      uses: increments/qiita-cli/actions/publish@v1
-      with:
-        qiita-token: ${{ inputs.qiita-token }}
-        root: ${{ inputs.root }}
-        commit-message: ${{ inputs.qiitacli-commit-message }}
+      run: |
+        RETRIES=0
+        MAX_RETRIES=3
+        until qiita publish --all --root "${{ inputs.root }}" --commit-message "${{ inputs.qiitacli-commit-message }}"; do
+          RETRIES=$((RETRIES+1))
+          if [ $RETRIES -ge $MAX_RETRIES ]; then
+            echo "Max retries reached. Exiting."
+            exit 1
+          fi
+          echo "Publish failed. Retrying in 10 seconds... ($RETRIES/$MAX_RETRIES)"
+          sleep 10
+        done
+      env:
+        QIITA_TOKEN: ${{ inputs.qiita-token }}
 
 branding:
   icon: refresh-cw
