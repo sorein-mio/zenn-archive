@@ -33,6 +33,10 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
   const frontMatterYaml = frontMatterMatch[1];
   const zennFrontMatter = parseYaml(frontMatterYaml) as ZennFrontMatter;
 
+  // 現在時刻をISO 8601形式で生成（ミリ秒を除去）
+  const now = new Date();
+  const updated_at = now.toISOString().split('.')[0] + 'Z';
+
   // Qiita形式のフロントマターに変換
   const qiitaFrontMatter: QiitaFrontMatter = {
     title: zennFrontMatter.title,
@@ -41,7 +45,7 @@ const convertToQiitaFormat = (inputPath: string, outputPath: string) => {
     slide: false,
     id: "example_id",
     organization_url_name: "example_org",
-    updated_at: new Date().toISOString(),
+    updated_at: updated_at,
   };
 
   // YAMLとしてフロントマターを生成
