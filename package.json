@@ -1,0 +1,18 @@
+{
+  "name": "zenn-archive",
+  "version": "1.0.0",
+  "description": "![](https://github.com/C-Naoki/zenn-archive/actions/workflows/publish.yml/badge.svg)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "zenn-cli": "^0.1.158"
+  },
+  "devDependencies": {
+    "@qiita/qiita-cli": "github:increments/qiita-cli#main"
+  }
+}
