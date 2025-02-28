@@ -4,7 +4,11 @@
   "description": "![](https://github.com/C-Naoki/zenn-archive/actions/workflows/publish.yml/badge.svg)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "qiita": "qiita",
+    "qiita:preview": "qiita preview",
+    "qiita:login": "qiita login",
+    "qiita:new": "qiita new"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +17,6 @@
     "zenn-cli": "^0.1.158"
   },
   "devDependencies": {
-    "@qiita/qiita-cli": "github:increments/qiita-cli#main"
+    "@qiita/qiita-cli": "^0.1.0"
   }
 }
