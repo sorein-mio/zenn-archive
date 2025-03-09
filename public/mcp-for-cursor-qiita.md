@@ -7,12 +7,14 @@ tags:
   - MCP
   - cursor
 private: false
-updated_at: '2025-02-28T12:06:04+09:00'
+updated_at: "2025-02-28T12:06:04+09:00"
 id: da3330ed9bc4af5ef99e
 organization_url_name: null
 ---
 
 # Cursor の MCP サーバーが JSON 対応したので便利機能をまとめたリポジトリを作りました
+
+> 🔄 **2025 年 3 月 9 日更新**: WSL 環境での MCP サーバーの実行に対応しました。WSL ユーザーの方は、新しく追加された`setup-mcp-servers-wsl.sh`スクリプトを使用してセットアップできるようになりました。
 
 ## はじめに
 
@@ -67,6 +69,11 @@ Cursor IDE がいち早く MCP をサポートしたことで、AI 開発アシ�
 - Git
 - Docker（docker-mcp を使用する場合）
 
+#### WSL 環境を使用する場合の追加要件
+
+- WSL2
+- Ubuntu 20.04 LTS 以上（推奨）
+
 ### 手順
 
 1. リポジトリをクローン
@@ -79,14 +86,60 @@ cd MCP_for_Cursor
 2. リポジトリ内のセットアップスクリプトを実行
 
 ```powershell
-# PowerShellで実行
+# Windows PowerShellで実行する場合
 ./setup-mcp-servers.ps1
 ./setup-typescript-servers.ps1
+
+# WSL環境で実行する場合
+chmod +x setup-mcp-servers-wsl.sh
+./setup-mcp-servers-wsl.sh
 ```
 
 3. Cursor でプロジェクトを開く
    - Cursor を起動し、クローンしたリポジトリフォルダを開きます
    - Cursor は自動的に`.cursor/mcp.json`を検出し、MCP サーバーを使用可能にします
+
+### WSL 環境でのセットアップに関する注意点
+
+- WSL2 を使用していることを確認してください（`wsl -l -v`で確認可能）
+- WSL 環境内で Node.js と Python をインストールすることを推奨します
+- Docker MCP を使用する場合は、WSL2 上の Docker を使用することができます
+
+### WSL 環境向けセットアップスクリプトの詳細
+
+**setup-mcp-servers-wsl.sh**  
+WSL 環境向けの Bash スクリプトです。このスクリプトは以下の処理を行います:
+
+1. **WSL 環境の検出**  
+   スクリプト開始時に、現在の環境が WSL であるかを確認します。
+
+2. **apt リポジトリの更新と依存関係のインストール**  
+   apt を使用してリポジトリの更新を行い、Node.js および Python3 のインストール状況を確認します。足りない場合は自動的にインストールを試みます。
+
+3. **MCP サーバーのセットアップ**  
+   指定された MCP サーバー（例: docker-mcp、mcp-text-editor）のディレクトリ内で、各種ビルドおよびセットアップ処理（npm install や pip install 等）を実行します。
+
+4. **Python バージョンのアップグレード (オプション)**  
+   mcp-text-editor など、一部のサーバーでは Python 3.13 以上が必要です。オプション `--upgrade-python` を指定して実行すると、pyenv を使用してユーザーレベルで Python のアップグレード（例：3.13.0 のインストール）が試みられます。
+
+### WSL 環境での実行方法
+
+**基本的なセットアップ**  
+WSL 環境で次のコマンドを実行してください:
+
+```bash
+bash setup-mcp-servers-wsl.sh
+```
+
+**Python のアップグレード (必要に応じて)**  
+mcp-text-editor のセットアップで Python バージョンが不足している場合、以下のコマンドで Python のアップグレードが可能です:
+
+```bash
+bash setup-mcp-servers-wsl.sh --upgrade-python
+```
+
+このオプションは、pyenv を自動でインストール・設定し、指定されたバージョン（例: 3.13.0）の Python をインストールしてから、グローバル環境に設定します。  
+※ pyenv 使用時には、シェルの初期化ファイルへの設定追加が必要な場合があります。詳細はスクリプト内のコメントを参照してください。
 
 ## 導入済み MCP サーバーの活用例
 
@@ -160,35 +213,60 @@ MCP サーバーが動作しない場合のトラブルシューティング手�
 1. ターミナルから手動でサーバーを起動して、エラーメッセージを確認
 
 ```powershell
-# Docker MCP
+# Windows環境でのDocker MCP
 cd mcp-repos/docker-mcp
 python -m docker_mcp
 
-# Filesystem MCP
+# Windows環境でのFilesystem MCP
 cd mcp-repos/servers/src/filesystem
 npx ts-node index.ts
+
+# WSL環境での実行
+wsl
+cd mcp-repos/docker-mcp
+python3 -m docker_mcp
 ```
 
 2. 依存関係の問題を確認
 
 ```powershell
-# Pythonの依存関係
+# Windowsでの依存関係確認
 pip list
+npm list
 
-# Node.jsの依存関係
-cd mcp-repos/servers/src/filesystem
+# WSL環境での依存関係確認
+wsl
+pip3 list
 npm list
 ```
 
 3. Node.js や Python のバージョンアップが必要な場合は、リポジトリ内の以下のスクリプトを使用
 
 ```powershell
-# Python 3.13のインストール（mcp-text-editor用）
+# Windows環境
 ./install-latest-python.ps1
-
-# Node.jsの更新
 ./install-latest-nodejs.ps1
+
+# WSL環境
+chmod +x install-latest-python-wsl.sh
+./install-latest-python-wsl.sh
 ```
+
+### WSL 環境特有の問題解決
+
+1. WSL と Windows の連携に関する問題
+
+   - WSL のバージョンが 2 であることを確認：`wsl --version`
+   - Windows との統合機能が有効か確認：`wsl --status`
+
+2. パーミッションの問題
+
+   - スクリプトの実行権限を付与：`chmod +x *.sh`
+   - 必要に応じて sudo を使用：`sudo ./setup-mcp-servers-wsl.sh`
+
+3. Docker 関連の問題
+   - WSL2 上の Docker デーモンの状態確認：`service docker status`
+   - 必要に応じて Docker を起動：`sudo service docker start`
 
 ## 実際の使用例: MCP を活用したコーディング体験
 
