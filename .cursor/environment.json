@@ -1,0 +1,20 @@
+{
+  "name": "zenn-archive",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "zenn-preview",
+      "command": "npx zenn preview --port 8000",
+      "description": "Zenn preview server. Open http://localhost:8000 to preview articles in articles/ and books in books/."
+    },
+    {
+      "name": "qiita-preview",
+      "command": "if [ -n \"$QIITA_TOKEN\" ]; then npx qiita preview; else echo 'QIITA_TOKEN secret is not set. Skipping Qiita preview. Add a Qiita personal access token as the QIITA_TOKEN secret to enable it.'; fi",
+      "description": "Qiita preview server on http://localhost:8888. Requires the QIITA_TOKEN secret; skipped when it is unset."
+    }
+  ],
+  "ports": [
+    { "name": "zenn-preview", "port": 8000 },
+    { "name": "qiita-preview", "port": 8888 }
+  ]
+}
