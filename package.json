@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "patch-package",
     "qiita": "qiita",
     "qiita:preview": "qiita preview",
     "qiita:login": "qiita login",
@@ -17,6 +18,10 @@
     "zenn-cli": "^0.1.158"
   },
   "devDependencies": {
-    "@qiita/qiita-cli": "^0.1.0"
+    "@qiita/qiita-cli": "^0.1.0",
+    "patch-package": "^8.0.1"
+  },
+  "overrides": {
+    "js-yaml": "5.3.0"
   }
 }
